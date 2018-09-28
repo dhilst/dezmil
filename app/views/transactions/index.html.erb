@@ -1,3 +1,5 @@
+<%= link_to 'anterior', "/transactions/#{@d.prev_month.year}/#{@d.prev_month.month}", class: 'btn btn-primary' %>
+<%= link_to 'proximo', "/transactions/#{@d.next_month.year}/#{@d.next_month.month}", class: 'btn btn-primary'  %>
 <table class="table">
   <thead>
     <tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_031613) do
+ActiveRecord::Schema.define(version: 2018_09_28_095957) do
 
   create_table "statements", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_031613) do
     t.decimal "amount"
     t.date "date"
     t.integer "statement_id"
+    t.index ["date", "memo", "amount"], name: "index_transactions_on_date_and_memo_and_amount", unique: true
     t.index ["statement_id"], name: "index_transactions_on_statement_id"
   end
 

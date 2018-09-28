@@ -22,7 +22,7 @@ class StatementsController < ApplicationController
 				)
 			end
 		end
-		redirect_to @statement
+		redirect_to '/'
 	end
 
 	def show

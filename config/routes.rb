@@ -2,8 +2,12 @@ Rails.application.routes.draw do
 	root to: 'transactions#index'
 
 	authenticate :user do
-		resources :statements
-		resources :transactions
+		resources :statements, only: %i[new create]
+
+		namespace :transactions do
+			get '/', action: :index
+			get '/:year/:month',  action: :index
+		end
 	end
 	
   devise_for :users
