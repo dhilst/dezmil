@@ -5,23 +5,21 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: tenk_development 
-  username: tenk
-  password: tenk 
-  hostname: 127.0.0.1
+  adapter: sqlite3
+  database: tenk_development.db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
   database: tenk_test
   username: dhilst
   password: dhilst
@@ -29,6 +27,7 @@ test:
 
 production:
   <<: *default
+  adapter: postgresql
   username: tenk
   database: tenk_production
   password: <%= ENV['DATABASE_PASSWORD'] %>
