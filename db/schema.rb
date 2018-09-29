@@ -10,14 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_095957) do
+ActiveRecord::Schema.define(version: 2018_09_29_013857) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
+  enable_extension "plpgsql"
 
   create_table "statements", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "number"
     t.decimal "balance"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
@@ -25,7 +29,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_095957) do
     t.string "memo"
     t.decimal "amount"
     t.date "date"
-    t.integer "statement_id"
+    t.bigint "statement_id"
     t.index ["date", "memo", "amount"], name: "index_transactions_on_date_and_memo_and_amount", unique: true
     t.index ["statement_id"], name: "index_transactions_on_statement_id"
   end
@@ -42,4 +46,5 @@ ActiveRecord::Schema.define(version: 2018_09_28_095957) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "transactions", "statements"
 end

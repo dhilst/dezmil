@@ -1,0 +1,5 @@
+class ChangeStatementNumber < ActiveRecord::Migration[5.2]
+  def change
+		change_column :statements, :number, :decimal
+  end
+end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 		namespace :transactions do
 			get '/', action: :index
 			get '/:year/:month',  action: :index
+			get '/:year/:month/fuzzy/', action: :search
 		end
 	end
 	

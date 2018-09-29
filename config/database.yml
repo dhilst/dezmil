@@ -6,13 +6,13 @@
 #
 default: &default
   encoding: unicode
+  adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  adapter: sqlite3
-  database: tenk_development.db
+  database: tenk_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -21,13 +21,10 @@ test:
   <<: *default
   adapter: sqlite3
   database: tenk_test
-  username: dhilst
-  password: dhilst
   database: db/test.sqlite3
 
 production:
   <<: *default
-  adapter: postgresql
   username: tenk
   database: tenk_production
   password: <%= ENV['DATABASE_PASSWORD'] %>
