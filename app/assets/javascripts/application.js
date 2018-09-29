@@ -17,3 +17,8 @@
 //= require popper
 //= require bootstrap
 //= require_tree .
+
+
+$(function() {
+ $('#search').focus();
+})
