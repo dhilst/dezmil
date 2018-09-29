@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
 		end
 
 		@transactions = current_user.transactions.month(@d)
-			.where('length(memo) - levenshtein(lower(memo),lower(:pattern)) > length(:pattern) * 0.70', pattern: params[:pattern])
+			.where('length(memo) - levenshtein(lower(memo),lower(:pattern)) > length(:pattern) * 0.90', pattern: params[:pattern])
 		render :index
 	end
 
