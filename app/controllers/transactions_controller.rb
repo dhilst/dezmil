@@ -61,7 +61,7 @@ class TransactionsController < ApplicationController
           Transaction.new(date: result[0], memo: nil, amount: result[1])
         end
       when 'category'
-        @transactions = @transactions.joins(:category).group(:category).sum(:amount).order(:amount).map do |result|
+        @transactions = @transactions.joins(:category).group(:category).sum(:amount).map do |result|
           display_name = result[0].display_name == 'selecione ..' ? 'S/ categoria' : result[0].display_name 
           Transaction.new(date: nil, memo: display_name, amount: result[1])
         end
