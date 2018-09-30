@@ -45,13 +45,15 @@ class TransactionsController < ApplicationController
       logger.debug "filtering transactoins by #{group}"
       case group
       when 'day'
-        @transactions = @transactions.where('amount < 0').group(:date).sum(:amount).map do |result|
+        @transactions = @transactions.where('amount < 0').group(:date).order(:date).sum(:amount).map do |result|
           Transaction.new(date: result[0], amount: result[1])
         end
       when 'week'
         @transactions = @transactions.where('amount < 0').group("date_trunc('week', date)").sum(:amount).map do |result|
           Transaction.new(date: result[0], amount: result[1])
         end
+      else
+        @transactions.order(:date)
       end
     end
 end
