@@ -7,9 +7,10 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th scope="col">Date</th>
+      <th scope="col">Data</th>
       <th scope="col">Memo</th>
-      <th scope="col">Value</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Categoria</th>
     </tr> 
   </thead>
   <tbody>
@@ -18,6 +19,12 @@
         <td><%= t.date %></td>
         <td><%= t.memo %></td>
         <td><%= t.amount %></td>
+        <td><%= select_tag 'category',
+                categories(t).html_safe,
+                class: 'custom-select category-select',
+                'data-transaction' => t.id.to_s,
+                style: "background-color: #{t.category&.color || 'white'}"
+            %></td>
       </tr>
     <% end %>
   </tbody>

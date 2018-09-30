@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 			get '/:year/:month',                 action: :month
 			get '/:year/:month/fuzzy/',          action: :search
 			get '/:year/:month/groupby/:group',  action: :groupby
+      patch '/category/:id/:category',     action: :set_category
 		end
 	end
 	

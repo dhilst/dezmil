@@ -18,6 +18,22 @@ $ ->
       $('#next')[0].click()
 
 
-  $('select').change (e) ->
+  $('#groupby').change (e) ->
     console.debug "New filter #{e.target.value}"
     window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
+
+  $('.category-select').change (e) ->
+    console.debug "Category changed"
+    tid = $(e.target).data 'transaction'
+    cat = e.target.value
+    $.ajax "/transactions/category/#{tid}/#{cat}",
+      type: 'patch'
+      data:
+        authenticity_token: window._token
+      success: ->
+        console.log 'Success'
+      error: ->
+        console.error arguments
+
+
+

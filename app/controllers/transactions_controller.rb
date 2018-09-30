@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   end
 
   def month
-		@transactions = current_user.transactions.month(@d)
+    @transactions = current_user.transactions.month(@d).order(:date, :memo, :amount)
     groupby_filter
     render :index
   end
@@ -31,7 +31,22 @@ class TransactionsController < ApplicationController
     logger.info "Session changed :groupby => #{session[:groupby]}"
     redirect_to action: :index
   end
-  
+
+  def set_category
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    logger.debug "#{params[:id]} #{params[:category]}"
+    current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(name: params[:category]))
+  end
+
 	private
 		def set_date
 			year = (params[:year] || Date.today.year).to_i

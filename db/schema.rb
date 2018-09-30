@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_013857) do
+ActiveRecord::Schema.define(version: 2018_09_30_123515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.string "help"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "display_name"
+    t.index ["name"], name: "index_categories_on_name", unique: true
+  end
 
   create_table "statements", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -30,6 +40,8 @@ ActiveRecord::Schema.define(version: 2018_09_29_013857) do
     t.decimal "amount"
     t.date "date"
     t.bigint "statement_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["date", "memo", "amount"], name: "index_transactions_on_date_and_memo_and_amount", unique: true
     t.index ["statement_id"], name: "index_transactions_on_statement_id"
   end
@@ -46,5 +58,6 @@ ActiveRecord::Schema.define(version: 2018_09_29_013857) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "statements"
 end
