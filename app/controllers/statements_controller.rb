@@ -10,13 +10,13 @@ class StatementsController < ApplicationController
 
 	def create
 		fil = params[:statement][:file]
-    uncat = Category.find_by(name: 'uncategorized')
+    uncat = Category.find(1)
 		OFX fil.tempfile do |p|
 			@statement = current_user.statements.create(
 				number: p.account.id,
 				balance: p.account.balance.amount)
 			p.account.transactions.each do |t|
-        @statement.transactions.create!(
+        @statement.transactions.create(
 					memo: t.memo,
 					amount: t.amount,
 					date: t.posted_at,

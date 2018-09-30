@@ -7,6 +7,10 @@ class TransactionsController < ApplicationController
 
   def month
     @transactions = current_user.transactions.month(@d).order(:date, :memo, :amount)
+    total_count = @transactions.count
+    if total_count > 0
+      @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count
+    end
     groupby_filter
     render :index
   end
