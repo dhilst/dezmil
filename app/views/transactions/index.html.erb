@@ -15,7 +15,7 @@ Categorizado: <div class="progress">
       <th scope="col">Data</th>
       <th scope="col">Memo</th>
       <th scope="col">Valor</th>
-      <% if @transactions.first.memo %>
+      <% if @transactions.first.memo && @transactions.first.date %>
       <th scope="col">Categoria</th>
       <% end %>
     </tr> 
@@ -26,7 +26,7 @@ Categorizado: <div class="progress">
         <td><%= t.date %></td>
         <td><%= t.memo %></td>
         <td><%= t.amount %></td>
-        <% if t.memo %>
+        <% if t.memo && t.date %>
         <td><%= select_tag 'category',
                 categories(t).html_safe,
                 class: 'custom-select category-select',

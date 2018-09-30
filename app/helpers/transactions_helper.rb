@@ -10,7 +10,8 @@ module TransactionsHelper
     options_for_select({
       dftopt => 'ungrouped',
       'dia' => 'day',
-      'semana' => 'week'
+      'semana' => 'week',
+      'categoria' => 'category'
     }, session[:groupby] || 'ungrouped')
   end
 

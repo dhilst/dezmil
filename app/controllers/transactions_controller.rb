@@ -37,18 +37,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_category
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    logger.debug "#{params[:id]} #{params[:category]}"
-    current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(name: params[:category]))
+   current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(name: params[:category]))
   end
 
 	private
@@ -70,6 +59,11 @@ class TransactionsController < ApplicationController
       when 'week'
         @transactions = @transactions.group("date_trunc('week', date)").sum(:amount).map do |result|
           Transaction.new(date: result[0], memo: nil, amount: result[1])
+        end
+      when 'category'
+        @transactions = @transactions.joins(:category).group(:category).sum(:amount).map do |result|
+          display_name = result[0].display_name == 'selecione ..' ? 'S/ categoria' : result[0].display_name 
+          Transaction.new(date: nil, memo: display_name, amount: result[1])
         end
       else
         @transactions.order(:date, :memo, :amount)
