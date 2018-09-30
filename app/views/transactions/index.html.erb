@@ -15,7 +15,9 @@ Categorizado: <div class="progress">
       <th scope="col">Data</th>
       <th scope="col">Memo</th>
       <th scope="col">Valor</th>
+      <% if @transactions.first.memo %>
       <th scope="col">Categoria</th>
+      <% end %>
     </tr> 
   </thead>
   <tbody>
@@ -24,12 +26,14 @@ Categorizado: <div class="progress">
         <td><%= t.date %></td>
         <td><%= t.memo %></td>
         <td><%= t.amount %></td>
+        <% if t.memo %>
         <td><%= select_tag 'category',
                 categories(t).html_safe,
                 class: 'custom-select category-select',
                 'data-transaction' => t.id.to_s,
                 style: "background-color: #{t.category&.color || 'white'}"
             %></td>
+      <% end %>
       </tr>
     <% end %>
   </tbody>

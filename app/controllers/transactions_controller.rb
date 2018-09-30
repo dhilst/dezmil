@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   end
 
   def month
-    @transactions = current_user.transactions.month(@d).order(:date, :memo, :amount)
+    @transactions = current_user.transactions.month(@d)
     total_count = @transactions.count
     if total_count > 0
       @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count
@@ -64,15 +64,15 @@ class TransactionsController < ApplicationController
       logger.debug "filtering transactoins by #{group}"
       case group
       when 'day'
-        @transactions = @transactions.where('amount < 0').group(:date).order(:date).sum(:amount).map do |result|
-          Transaction.new(date: result[0], amount: result[1])
+        @transactions = @transactions.order(:date).group(:date).sum(:amount).map do |result|
+          Transaction.new(date: result[0], memo: nil, amount: result[1])
         end
       when 'week'
-        @transactions = @transactions.where('amount < 0').group("date_trunc('week', date)").sum(:amount).map do |result|
-          Transaction.new(date: result[0], amount: result[1])
+        @transactions = @transactions.group("date_trunc('week', date)").sum(:amount).map do |result|
+          Transaction.new(date: result[0], memo: nil, amount: result[1])
         end
       else
-        @transactions.order(:date)
+        @transactions.order(:date, :memo, :amount)
       end
     end
 end
