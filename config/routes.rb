@@ -5,9 +5,10 @@ Rails.application.routes.draw do
 		resources :statements, only: %i[new create]
 
 		namespace :transactions do
-			get '/', action: :index
-			get '/:year/:month',  action: :index
-			get '/:year/:month/fuzzy/', action: :search
+			get '/',                             action: :index
+			get '/:year/:month',                 action: :month
+			get '/:year/:month/fuzzy/',          action: :search
+			get '/:year/:month/groupby/:group',  action: :groupby
 		end
 	end
 	
