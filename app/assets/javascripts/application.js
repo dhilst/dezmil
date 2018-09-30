@@ -16,6 +16,8 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require hammer
+//= require jquery.hammer
 //= require_tree .
 
 

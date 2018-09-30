@@ -1,6 +1,6 @@
 <div class="input-group">
-  <%= link_to 'anterior', "/transactions/#{@d.prev_month.year}/#{@d.prev_month.month}", class: 'btn btn-primary form-control' %>
-  <%= link_to 'proximo', "/transactions/#{@d.next_month.year}/#{@d.next_month.month}", class: 'btn btn-primary form-control'  %>
+  <%= link_to 'anterior', "/transactions/#{@d.prev_month.year}/#{@d.prev_month.month}", id: :prev, class: 'btn btn-primary form-control' %>
+  <%= link_to 'proximo', "/transactions/#{@d.next_month.year}/#{@d.next_month.month}", id: :next, class: 'btn btn-primary form-control'  %>
   <%= select_tag 'groupby', groups, class: 'custom-select' %>
   </select>
 </div>
