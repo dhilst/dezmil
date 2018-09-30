@@ -19,7 +19,6 @@
 //= require bootstrap
 //= require hammer
 //= require jquery.hammer
-//= require jquery.easing
 //= require_tree .
 
 
