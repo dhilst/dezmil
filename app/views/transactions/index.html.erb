@@ -6,7 +6,7 @@
 </div>
 <% unless @progress.nil? %>
 Categorizado: <div class="progress">
-  <div class="progress-bar bg-success" style="width: <%= @progress %>%"></div>
+  <div class="progress-bar bg-success" style="width: <%= @progress %>%"><% if @progress > 10 %><%= @progress %>%<% end %></div>
 </div>
 <% end %>
 <table class="table table-striped table-hover">
