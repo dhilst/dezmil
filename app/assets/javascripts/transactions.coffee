@@ -8,11 +8,10 @@ $ ->
   [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
 
   body = $('body')[0]
-  hammertime = new Hammer body, {}
+  hammertime = new Hammer body
   hammertime.on 'pan', (e) ->
     console.log e.additionalEvent
     if e.additionalEvent == 'panright'
-      console.log $('#prev')
       $('#prev')[0].click()
     else if e.additionalEvent == 'panleft'
       $('#next')[0].click()
