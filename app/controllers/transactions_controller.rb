@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
 		end
 
 		@transactions = current_user.transactions.month(@d)
-			.where('length(memo) - levenshtein(lower(memo),lower(:pattern)) > length(:pattern) * 0.90', pattern: params[:pattern])
+      .agrep(params[:pattern], 0.9)
     groupby_filter
 		render :index
 	end
