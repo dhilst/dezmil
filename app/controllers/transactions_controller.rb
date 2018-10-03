@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
   end
 
   def month
-    @transactions = current_user.transactions.month(@d).order(:date,:amount,:memo)
+    @transactions = current_user.transactions.month(@d)
     total_count = @transactions.count
     if total_count > 0
       @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count
