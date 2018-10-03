@@ -6,17 +6,18 @@
 $ ->
   console.info 'transactions.coffee loaded'
 
-  [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
-  body = $('body')
-  hammertime = new Hammer body
-  hammertime.on 'pan', (e) ->
-    console.log e.additionalEvent
-    if e.additionalEvent == 'panright'
-      $('body').hide('slide', { direction: 'left' }, 500)
-      $('#prev')[0].click()
-    else if e.additionalEvent == 'panleft'
-      $('body').hide('slide', { direction: 'right' }, 500)
-      $('#next')[0].click()
+  if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
+    [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
+    body = $('body')
+    hammertime = new Hammer body
+    hammertime.on 'pan', (e) ->
+      console.log e.additionalEvent
+      if e.additionalEvent == 'panright'
+        $('body').hide('slide', { direction: 'left' }, 500)
+        $('#prev')[0].click()
+      else if e.additionalEvent == 'panleft'
+        $('body').hide('slide', { direction: 'right' }, 500)
+        $('#next')[0].click()
 
   closeAlerts = ->
     console.log 'Closing alerts'

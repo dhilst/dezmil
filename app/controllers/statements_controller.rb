@@ -23,7 +23,7 @@ class StatementsController < ApplicationController
         where categories.name <> 'uncategoried' and
               (length(transactions.memo) - levenshtein(lower(transactions.memo),lower('#{t.memo}')))::float / length(transactions.memo) > 0.9
         group by categories.id
-        having count(categories.id) >= 3
+        having count(categories.id) >= 1
         order by count(categories.id)
         EOF
         categories = ActiveRecord::Base.connection.execute(query)
@@ -42,6 +42,8 @@ class StatementsController < ApplicationController
       redirect_to '/'
     else
       flash[:success] = "Yay!, #{@statement.transactions.count} novas linhas!" 
+      count = @statement.transactions.joins(:category).where("categories.name <> 'uncategoried'").count()
+      flash[:info] = "#{count} lines already categorized!!!" if count > 0
       redirect_to controller: :transactions, action: :statement, id: @statement.id
     end
 	end
