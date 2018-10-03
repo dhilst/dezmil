@@ -2,12 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+closeAlerts = ->
+  console.log 'Closing alerts'
+  $('.alert').alert 'close'
+
  
-$ ->
-  console.info 'transactions.coffee loaded'
+ready = ->
+  console.info 'transactions.coffee loaded', new Date()
+
+  setTimeout closeAlerts, 2000
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
+    console.log "year #{year}, month #{month}"
     body = $('body')
     hammertime = new Hammer body
     hammertime.on 'pan', (e) ->
@@ -19,28 +26,22 @@ $ ->
         $('body').hide('slide', { direction: 'right' }, 500)
         $('#next')[0].click()
 
-  closeAlerts = ->
-    console.log 'Closing alerts'
-    $('.alert').alert 'close'
+    $('#groupby').change (e) ->
+      console.debug "New filter #{e.target.value} #{year} #{month}"
+      window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
 
-  setTimeout closeAlerts, 2000
+    $('.category-select').change (e) ->
+      console.debug "Category changed"
+      tid = $(e.target).data 'transaction'
+      cat = e.target.value
+      $.ajax "/transactions/category/#{tid}/#{cat}",
+        type: 'patch'
+        data:
+          authenticity_token: window._token
+        success: ->
+          console.log 'Success'
+        error: ->
+          console.error arguments
 
-  $('#groupby').change (e) ->
-    console.debug "New filter #{e.target.value}"
-    window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
-
-  $('.category-select').change (e) ->
-    console.debug "Category changed"
-    tid = $(e.target).data 'transaction'
-    cat = e.target.value
-    $.ajax "/transactions/category/#{tid}/#{cat}",
-      type: 'patch'
-      data:
-        authenticity_token: window._token
-      success: ->
-        console.log 'Success'
-      error: ->
-        console.error arguments
-
-
-
+$(document).ready(ready)
+$(document).on('turbolinks:load', ready)
