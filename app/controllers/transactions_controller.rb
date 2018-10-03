@@ -5,8 +5,13 @@ class TransactionsController < ApplicationController
     redirect_to "/transactions/#{@d.year}/#{@d.month}"
   end
 
+  def statement
+    @transactions = Transaction.joins(:statement).where(statement_id: params[:id])
+    render :index
+  end
+
   def month
-    @transactions = current_user.transactions.month(@d)
+    @transactions = current_user.transactions.month(@d).order(:date,:amount,:memo)
     total_count = @transactions.count
     if total_count > 0
       @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count

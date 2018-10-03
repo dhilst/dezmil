@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+ 
 $ ->
   console.info 'transactions.coffee loaded'
 
@@ -17,6 +18,11 @@ $ ->
       $('body').hide('slide', { direction: 'right' }, 500)
       $('#next')[0].click()
 
+  closeAlerts = ->
+    console.log 'Closing alerts'
+    $('.alert').alert 'close'
+
+  setTimeout closeAlerts, 2000
 
   $('#groupby').change (e) ->
     console.debug "New filter #{e.target.value}"
