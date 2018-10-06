@@ -63,17 +63,21 @@ class TransactionsController < ApplicationController
         @transactions = @transactions.order(:date).group(:date).sum(:amount).map do |result|
           Transaction.new(date: result[0], memo: nil, amount: result[1])
         end
+        @grouped = true
       when 'week'
         @transactions = @transactions.group("date_trunc('week', date)").sum(:amount).map do |result|
-          Transaction.new(date: result[0], memo: nil, amount: result[1])
+          Transaction.new(date: result[0].to_datetime.cweek, memo: nil, amount: result[1])
         end
+        @grouped = true
       when 'category'
         @transactions = @transactions.joins(:category).group(:category).order('sum_amount').sum(:amount).map do |result|
           display_name = result[0].display_name == 'selecione ..' ? 'S/ categoria' : result[0].display_name 
           Transaction.new(date: nil, memo: display_name, amount: result[1])
         end
+        @grouped = true
       else
         @transactions.order(:date, :memo, :amount)
+        @grouped = false
       end
     end
 end

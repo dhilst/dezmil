@@ -16,7 +16,9 @@
       <th scope="col">Memo</th>
       <th scope="col">Valor</th>
       <th scope="col"></th>
-      <th scope="col">Categoria</th>
+      <% unless @grouped %>
+        <th scope="col">Categoria</th>
+      <% end %>
     </tr> 
   </thead>
   <tbody>
@@ -30,15 +32,17 @@
           <%= fa_icon 'exclamation-circle', class: 'hidden failure' %>
           <%= fa_icon 'spinner', class: 'loading hidden' %>
         </td>
-        <td class='category'>
-          <%= select_tag 'category',
-            categories(t).html_safe,
-            class: 'category-select custom-select',
-            'data-transaction' => t.id.to_s,
-            style: "background-color: #{t.category&.color || 'white'}",
-            id: nil
-          %>
-        </td>
+        <% unless @grouped %>
+          <td class='category'>
+            <%= select_tag 'category',
+              categories(t).html_safe,
+              class: 'category-select custom-select',
+              'data-transaction' => t.id.to_s,
+              style: "background-color: #{t.category&.color || 'white'}",
+              id: nil
+            %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
