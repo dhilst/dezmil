@@ -6,7 +6,6 @@ closeAlerts = ->
   console.log 'Closing alerts'
   $('.alert').alert 'close'
 
- 
 ready = ->
   console.info 'transactions.coffee loaded', new Date()
 
@@ -31,17 +30,24 @@ ready = ->
       window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
 
     $('.category-select').change (e) ->
+      e.preventDefault()
       console.debug "Category changed"
       tid = $(e.target).data 'transaction'
       cat = e.target.value
+      color = $(e.target).find("[value=#{cat}]").data('color')
+      console.debug 'color', color
+      $(e.target).parent().parent().find('td .hidden.loading').show(200).delay(10).addClass('spin-animation')
       $.ajax "/transactions/category/#{tid}/#{cat}",
         type: 'patch'
         data:
           authenticity_token: window._token
         success: ->
           console.log 'Success'
+          $(e.target).css('background-color', color)
+          $(e.target).parent().parent().find('td .loading').hide(200)
+          $(e.target).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
         error: ->
+          $(e.target).value('ERRO').attr('background-color', '#ff0000')
           console.error arguments
 
-$(document).ready(ready)
-$(document).on('turbolinks:load', ready)
+$(document).on('ready turbolinks:load', ready)

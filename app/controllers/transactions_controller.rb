@@ -16,6 +16,8 @@ class TransactionsController < ApplicationController
     total_count = @transactions.count
     if total_count > 0
       @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count
+    else
+      @progress = 0
     end
     groupby_filter
     render :index

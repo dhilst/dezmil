@@ -14,3 +14,29 @@
  */
 
 @import 'bootstrap';
+@import 'font-awesome';
+
+.category {
+  select {
+    max-width: 90%;
+  }
+
+}
+
+.hidden {
+    display: none;
+}
+
+.status {
+    min-width: 40px;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.spin-animation {
+    animation: spin 1s infinite linear;
+}
+
