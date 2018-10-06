@@ -7,7 +7,6 @@ class TransactionsController < ApplicationController
 
   def statement
     @transactions = Transaction.joins(:statement).where(statement_id: params[:id]).order(:date,:amount,:memo)
-    groupby_filter
     render :index
   end
 

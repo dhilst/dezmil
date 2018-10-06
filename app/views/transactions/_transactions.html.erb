@@ -1,9 +1,11 @@
 <% unless @transactions.nil? %>
   Categorizado:
 <div class="progress">
-  <div class="progress-bar bg-success" style="width: <%= @progress %>%">
-    <% if @progress > 10 %><%= @progress %>%<% end %>
-  </div>
+  <% if @progress %>
+    <div class="progress-bar bg-success" style="width: <%= @progress %>%">
+      <% if @progress > 10 %><%= @progress %>%<% end %>
+    </div>
+  <% end %>
 </div>
 <% end %>
 <% if @transactions.count > 0 %>
