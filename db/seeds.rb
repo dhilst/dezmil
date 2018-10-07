@@ -97,3 +97,8 @@ Category.find_or_create_by(
   name: 'revenue',
   color: '#a10afa'
 )
+Category.find_or_create_by( 
+  display_name: 'Rendimentos',
+  name: 'yield',
+  color: '#9cfb62'
+)
