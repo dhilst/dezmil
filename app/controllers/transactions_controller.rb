@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
         end
         @grouped = true
       when 'week'
-        @transactions = @transactions.group("date_trunc('week', date)").sum(:amount).map do |result|
+        @transactions = @transactions.group("date_trunc('week', transactions.date)").sum(:amount).map do |result|
           Transaction.new(date: result[0].to_datetime.cweek, memo: nil, amount: result[1])
         end
         @grouped = true
@@ -76,7 +76,7 @@ class TransactionsController < ApplicationController
         end
         @grouped = true
       else
-        @transactions.order(:date).order('memo desc')
+        @transactions = @transactions.order('date, memo')
         @grouped = false
       end
     end
