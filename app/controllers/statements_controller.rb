@@ -20,6 +20,19 @@ class StatementsController < ApplicationController
         date: p.account.balance.posted_at,
       )
 
+      unless @statement.persisted?
+        @statement = current_user.statements.find_by(
+          bank: p.account.bank_id,
+          currency: p.account.currency,
+          number: p.account.id,
+          balance: p.account.balance.amount,
+          date: p.account.balance.posted_at,
+        )
+        flash[:info] = 'Esse extrato já tinha sido importado antes ...'
+        redirect_to controller: :transactions, action: :statement, id: @statement.id
+        return
+      end
+
       accbalance = p.account.balance.amount
       p.account.transactions.select{|t| t.posted_at <= p.account.balance.posted_at }.reverse_each do |t|
         query = <<-EOF
@@ -40,7 +53,7 @@ class StatementsController < ApplicationController
 					date: t.posted_at,
           category: cat || uncat,
           balance: accbalance,
-				)
+        )
         accbalance += t.amount
 			end
 
@@ -66,7 +79,7 @@ class StatementsController < ApplicationController
 					date: t.posted_at,
           category: cat || uncat,
           balance: accbalance,
-				)
+        )
 			end
 		end
     if @statement.transactions.count == 0
