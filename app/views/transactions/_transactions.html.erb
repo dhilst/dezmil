@@ -15,7 +15,8 @@
     <tr>
       <th scope="col">Data</th>
       <th scope="col">Memo</th>
-      <th scope="col">Valor</th>
+      <th scope="col">Credito</th>
+      <th scope="col">Debito</th>
       <th scope="col"></th>
       <% unless @grouped %>
         <th scope="col">Saldo</th>
@@ -30,7 +31,8 @@
         <td>
           <%= link_to "#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration' %>
         </td>
-        <td><%= t.amount %></td>
+        <td><%= t.credit %></td>
+        <td><%= t.debit %></td>
         <td class='status'>
           <%= fa_icon 'check-circle', class: 'hidden success' %>
           <%= fa_icon 'exclamation-circle', class: 'hidden failure' %>
@@ -52,6 +54,24 @@
     <% end %>
   </tbody>
 </table>
+<% unless @grouped %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Debito</th>
+      <th>Credito</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Total</th>
+      <td id='total-credit'><%= @transactions.where('transactions.amount > 0').sum('transactions.amount') %></td>
+      <td id='total-debit'><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
 <% else %>
   Sem dados!
 <% end %>
