@@ -14,21 +14,12 @@ ready = ->
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     console.log "year #{year}, month #{month}"
-    body = $('body')
-    hammertime = new Hammer body
-    hammertime.on 'pan', (e) ->
-      console.log e.additionalEvent
-      if e.additionalEvent == 'panright'
-        $('body').hide('slide', { direction: 'left' }, 500)
-        $('#prev')[0].click()
-      else if e.additionalEvent == 'panleft'
-        $('body').hide('slide', { direction: 'right' }, 500)
-        $('#next')[0].click()
 
   $('#groupby').change (e) ->
     console.debug "New filter #{e.target.value} #{year} #{month}"
     window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
 
+    
   $('.category-select').change (e) ->
     e.preventDefault()
     console.debug "Category changed"
@@ -46,6 +37,26 @@ ready = ->
         $(e.target).css('background-color', color)
         $(e.target).parent().parent().find('td .loading').hide(200)
         $(e.target).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
+
+        selects = $('select.category-select')
+        if location.search.match(/pattern=/i) and selects.length > 1 and confirm('Você gostaria de categorizar as outras transações da mesma forma?')
+          selects.each ->
+            tselect = this
+            $(tselect).parent().parent().find('td .hidden.loading').show(200).delay(10).addClass('spin-animation')
+            tid = $(tselect).data('transaction')
+            $.ajax "/transactions/category/#{tid}/#{cat}",
+              type: 'patch'
+              data:
+                authenticity_token: window._token
+              success: ->
+                console.log 'Success'
+                $(tselect).val(cat)
+                $(tselect).css('background-color', color)
+                $(tselect).parent().parent().find('td .loading').hide(200)
+                $(tselect).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
+
+          
+          
       error: ->
         $(e.target).value('ERRO').attr('background-color', '#ff0000')
         console.error arguments
