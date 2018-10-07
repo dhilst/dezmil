@@ -1,3 +1,4 @@
+<%if @d %><h1><%= link_to @d.strftime("%B"), "/transactions/#{@d.year}/#{@d.month}/", class: 'no-text-decoration' %></h1><% end %>
 <% unless @transactions.nil? %>
   Categorizado:
 <div class="progress">
@@ -17,6 +18,7 @@
       <th scope="col">Valor</th>
       <th scope="col"></th>
       <% unless @grouped %>
+        <th scope="col">Saldo</th>
         <th scope="col">Categoria</th>
       <% end %>
     </tr> 
@@ -25,7 +27,9 @@
     <% @transactions.each do |t| %>
       <tr>
         <td><%= t.date %></td>
-        <td><%= t.memo %></td>
+        <td>
+          <%= link_to "#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration' %>
+        </td>
         <td><%= t.amount %></td>
         <td class='status'>
           <%= fa_icon 'check-circle', class: 'hidden success' %>
@@ -33,6 +37,7 @@
           <%= fa_icon 'spinner', class: 'loading hidden' %>
         </td>
         <% unless @grouped %>
+          <td><%= t.balance %></td>
           <td class='category'>
             <%= select_tag 'category',
               categories(t).html_safe,

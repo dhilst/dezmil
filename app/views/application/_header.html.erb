@@ -27,7 +27,7 @@
 			<% end %>	
     </ul>
     <% if user_signed_in? && !@d.nil? %>
-      <form class="form-inline my-2 my-lg-0" action='<%= "/transactions/#{@d.year}/#{@d.month}/fuzzy/" %>' >
+      <form class="form-inline my-2 my-lg-0" action='<%= "/transactions/#{@d.year}/#{@d.month}/fuzzy/" %>' method="get" >
         <input id='search' class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="pattern">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>

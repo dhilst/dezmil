@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   end
 
   def statement
-    @transactions = Transaction.joins(:statement).where(statement_id: params[:id]).order(:date,:amount,:memo)
+    @transactions = Transaction.joins(:statement).where(statement_id: params[:id]).order(:date).order('memo desc')
     render :index
   end
 
@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
     @transactions = current_user.transactions.month(@d)
     total_count = @transactions.count
     if total_count > 0
-      @progress = @transactions.joins(:category).where('categories.name != ?', "uncategoried").count * 100 / total_count
+      @progress = @transactions.joins(:category).where('categories.name != ?', "uncategorized").count * 100 / total_count
     else
       @progress = 0
     end
@@ -76,7 +76,7 @@ class TransactionsController < ApplicationController
         end
         @grouped = true
       else
-        @transactions.order(:date, :memo, :amount)
+        @transactions.order(:date).order('memo desc')
         @grouped = false
       end
     end

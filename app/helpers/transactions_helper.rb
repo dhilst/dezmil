@@ -16,11 +16,11 @@ module TransactionsHelper
   end
 
   def categories(transaction)
-    u = Category.find_by(name: 'uncategoried')
+    u = Category.find_by(name: 'uncategorized')
     selected_attr = transaction.category&.id == u.id ? 'selected' : ''
     uncat = "<option value='#{u.name}' class='category-#{u.name}' #{selected_attr} data-color='#{u.color}'>#{u.display_name}</option>\n"
 
-    cats = Category.where('name != ?', 'uncategoried').order(:display_name).map do |c|
+    cats = Category.where('name != ?', 'uncategorized').order(:display_name).map do |c|
       selected_attr = transaction.category&.id == c.id ? 'selected' : ''
       "<option value='#{c.name}' class='category-#{c.name}' #{selected_attr} data-color='#{c.color}'>#{c.display_name}</option>\n"
     end.join

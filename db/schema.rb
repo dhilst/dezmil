@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_123515) do
+ActiveRecord::Schema.define(version: 2018_10_06_143503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 2018_09_30_123515) do
     t.decimal "number"
     t.decimal "balance"
     t.bigint "user_id"
+    t.datetime "date"
+    t.string "currency"
+    t.string "bank"
+    t.index ["number", "balance", "user_id", "date", "currency", "bank"], name: "unique_by_all", unique: true
     t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
@@ -41,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_123515) do
     t.date "date"
     t.bigint "statement_id"
     t.bigint "category_id"
+    t.decimal "balance"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["date", "memo", "amount"], name: "index_transactions_on_date_and_memo_and_amount", unique: true
     t.index ["statement_id"], name: "index_transactions_on_statement_id"
