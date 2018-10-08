@@ -1,2 +1,9 @@
 <%= render 'navigation' %>
-<%= render 'transactions' %>
+<% if @grouped and @categorygroup %>
+  <%= render 'categorygroup' %>
+<% elsif @grouped %>
+  <%= render 'dategroup' %>
+<% else %>
+  <%= render 'transactions' %>
+<% end %>
+

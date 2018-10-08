@@ -58,22 +58,35 @@ class TransactionsController < ApplicationController
       group = session[:groupby]
       return if group == 'ungrouped'
       logger.debug "filtering transactoins by #{group}"
+      @total_in  = current_user.transactions.month(@d).where('transactions.amount > 0').sum('transactions.amount')
+      @total_out = current_user.transactions.month(@d).where('transactions.amount < 0').sum('transactions.amount')
       case group
       when 'day'
-        @transactions = @transactions.order(:date).group(:date).sum(:amount).map do |result|
-          Transaction.new(date: result[0], memo: nil, amount: result[1])
-        end
+        @transactions = current_user.transactions
+          .select('transactions.date,
+                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+          .month(@d)
+          .group('transactions.date')
         @grouped = true
       when 'week'
-        @transactions = @transactions.group("date_trunc('week', transactions.date)").sum(:amount).map do |result|
-          Transaction.new(date: result[0].to_datetime.cweek, memo: nil, amount: result[1])
-        end
+        @transactions = current_user.transactions
+          .select('extract(\'week\' from transactions.date)::int as date,
+                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+          .month(@d)
+          .group('extract(\'week\' from transactions.date)')
         @grouped = true
       when 'category'
-        @transactions = @transactions.joins(:category).group(:category).order('sum_amount').sum(:amount).map do |result|
-          display_name = result[0].display_name == 'selecione ..' ? 'S/ categoria' : result[0].display_name 
-          Transaction.new(date: nil, memo: display_name, amount: result[1])
-        end
+        @transactions = current_user.transactions
+          .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name, categories.id,
+                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+          .joins(:category)
+          .month(@d)
+          .group('categories.id')
+          .order('_debit')
+        @categorygroup = true
         @grouped = true
       else
         @transactions = @transactions.order('date, memo')
