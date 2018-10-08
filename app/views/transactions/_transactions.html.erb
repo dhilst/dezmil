@@ -15,13 +15,13 @@
     <tr>
       <th scope="col">Data</th>
       <th scope="col">Memo</th>
-      <th scope="col">Credito</th>
-      <th scope="col">Debito</th>
       <th scope="col"></th>
       <% unless @grouped %>
         <th scope="col">Saldo</th>
         <th scope="col">Categoria</th>
       <% end %>
+      <th scope="col">Credito</th>
+      <th scope="col">Debito</th>
     </tr> 
   </thead>
   <tbody>
@@ -31,8 +31,6 @@
         <td>
           <%= link_to "#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration' %>
         </td>
-        <td><%= t.credit %></td>
-        <td><%= t.debit %></td>
         <td class='status'>
           <%= fa_icon 'check-circle', class: 'hidden success' %>
           <%= fa_icon 'exclamation-circle', class: 'hidden failure' %>
@@ -50,6 +48,8 @@
             %>
           </td>
         <% end %>
+        <td><%= t.credit %></td>
+        <td><%= t.debit %></td>
       </tr>
     <% end %>
   </tbody>
