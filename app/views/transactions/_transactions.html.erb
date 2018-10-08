@@ -16,10 +16,8 @@
       <th scope="col">Data</th>
       <th scope="col">Memo</th>
       <th scope="col"></th>
-      <% unless @grouped %>
-        <th scope="col">Saldo</th>
-        <th scope="col">Categoria</th>
-      <% end %>
+      <th scope="col">Categoria</th>
+      <th scope="col">Saldo</th>
       <th scope="col">Credito</th>
       <th scope="col">Debito</th>
     </tr> 
@@ -36,18 +34,16 @@
           <%= fa_icon 'exclamation-circle', class: 'hidden failure' %>
           <%= fa_icon 'spinner', class: 'loading hidden' %>
         </td>
-        <% unless @grouped %>
-          <td><%= t.balance %></td>
-          <td class='category'>
-            <%= select_tag 'category',
-              categories(t).html_safe,
-              class: 'category-select custom-select',
-              'data-transaction' => t.id.to_s,
-              style: "background-color: #{t.category&.color || 'white'}",
-              id: nil
-            %>
-          </td>
-        <% end %>
+        <td class='category'>
+          <%= select_tag 'category',
+            categories(t).html_safe,
+            class: 'category-select custom-select',
+            'data-transaction' => t.id.to_s,
+            style: "background-color: #{t.category&.color || 'white'}",
+            id: nil
+          %>
+        </td>
+        <td><%= t.balance %></td>
         <td><%= t.credit %></td>
         <td><%= t.debit %></td>
       </tr>
