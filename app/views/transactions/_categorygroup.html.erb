@@ -11,7 +11,7 @@
     <tbody>
       <% @transactions.each do |t| %>
         <tr>
-          <td><%= t.display_name %></td>
+          <td><%= link_to t.display_name, "/transactions/#{@d.year}/#{@d.month}?category=#{t.category_name}", class: 'no-text-decoration' %></td>
           <td><%= t._credit %></td>
           <td><%= t._debit %></td>
         </tr>

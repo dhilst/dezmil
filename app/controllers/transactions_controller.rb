@@ -12,6 +12,10 @@ class TransactionsController < ApplicationController
 
   def month
     @transactions = current_user.transactions.month(@d).order('date, memo')
+    if params[:category]
+      session.delete :groupby
+      @transactions = @transactions.joins(:category).where('categories.name = ?', params[:category])
+    end
     total_count = @transactions.count
     if total_count > 0
       @progress = @transactions.joins(:category).where('categories.name != ?', "uncategorized").count * 100 / total_count
@@ -80,6 +84,7 @@ class TransactionsController < ApplicationController
       when 'category'
         @transactions = current_user.transactions
           .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name, categories.id,
+                   categories.name as category_name,
                    sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
                    sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
           .joins(:category)
