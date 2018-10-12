@@ -10,7 +10,7 @@
 </div>
 <% end %>
 <% if @transactions.count > 0 %>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover large-table">
   <thead>
     <tr>
       <th scope="col"><div class='text-center'>Data</div></th>
@@ -62,15 +62,15 @@
   <thead>
     <tr>
       <th></th>
-      <th>Credito</th>
-      <th>Debito</th>
+      <th class='text-center'>Credito</th>
+      <th class='text-center'>Debito</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Total</th>
-      <td id='total-credit'><%= @transactions.where('transactions.amount > 0').sum('transactions.amount') %></td>
-      <td id='total-debit'><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %></td>
+      <td id='total-credit' class='text-right'><%= @transactions.where('transactions.amount > 0').sum('transactions.amount') %></td>
+      <td id='total-debit'  class='text-right'><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %></td>
     </tr>
   </tbody>
 </table>
