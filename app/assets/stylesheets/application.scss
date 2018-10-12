@@ -49,11 +49,19 @@
   display: none;
 }
 
+.memo {
+  text-align: left;
+}
+
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
 
   .mobile-only {
     display: inherit;
+  }
+
+  .memo {
+    text-align: right;
   }
 
 	/* Force table to not be like tables anymore */

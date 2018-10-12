@@ -29,7 +29,12 @@
           <%= render 'txcell', header: 'Data', value: t.date %>
         </td>
         <td>
-          <%= render 'txcell', header: 'Memo', value: link_to("#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration') %>
+          <div class='text-left mobile-only'>
+            <small>Memo</small>
+          </div>
+          <div class='memo'>
+            <%= link_to("#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration') %>
+          </div>
         </td>
         <td class='status empty'>
           <%= fa_icon 'check-circle', class: 'hidden success' %>
