@@ -49,7 +49,7 @@
         <% [%w[credit  Entrada], 
             %w[debit   Saída],
             %w[balance Saldo]].each do |attr, header| %>
-            <td>
+            <td class="<%= 'empty' if t.send(attr).nil? %>">
               <%= render 'txcell', header: header, value: t.send(attr) %>
             </td>
         <% end %>
