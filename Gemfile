@@ -65,6 +65,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bigdecimal'
 gem 'devise'
+gem 'devise_invitable'
 gem 'ofx'
 gem 'sprockets'
 gem 'bootstrap'

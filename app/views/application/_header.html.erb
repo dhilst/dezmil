@@ -6,25 +6,26 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-			<% if user_signed_in? %>
-				<li class="nav-item active">
-          <%= link_to 'Transactions', '/', class: 'nav-link' %>
-				</li>
-				<li class="nav-item">
-          <%= link_to 'Upload', '/statements/new', class: 'nav-link' %>
-				</li>
-				<div class="dropdown-divider"></div>
-				<li class="nav-item">
-          <%= link_to 'Sign out', :destroy_user_session, method: :delete, class: 'nav-link' %>
-				</li>
-			<% else %>
-				<li class="nav-item">
-          <%= link_to 'Sign up', :new_user_registration, class: 'nav-link'%>
-				</li>
-				<li class="nav-item">
-          <%= link_to 'Sign in', :new_user_session, class: 'nav-link' %>
-				</li>
-			<% end %>	
+      <% if user_signed_in? %>
+        <li class="nav-item active">
+          <%= link_to 'Extrato', '/', class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Importar', '/statements/new', class: 'nav-link' %>
+        </li>
+        <div class="dropdown-divider"></div>
+        <li class="nav-item">
+          <%= link_to 'Convide um amigo', new_user_invitation_path, class: 'nav-link' %>
+        </li>
+        <div class="dropdown-divider"></div>
+        <li class="nav-item">
+          <%= link_to 'Sair', :destroy_user_session, method: :delete, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Entrar', :new_user_session, class: 'nav-link' %>
+        </li>
+      <% end %>	
     </ul>
     <% if user_signed_in? && !@d.nil? %>
       <form class="form-inline my-2 my-lg-0" action='<%= "/transactions/#{@d.year}/#{@d.month}/fuzzy/" %>' method="get" >
