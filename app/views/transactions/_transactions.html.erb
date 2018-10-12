@@ -17,8 +17,8 @@
       <th scope="col"><div class='text-center'>Memo</div></th>
       <th scope="col"></th>
       <th scope="col"><div class='text-center'>Categoria</div></th>
-      <th scope="col"><div class='text-center'>Credito  </div></th>
-      <th scope="col"><div class='text-center'>Debito   </div></th>
+      <th scope="col"><div class='text-center'>Entrada</div></th>
+      <th scope="col"><div class='text-center'>Saída</div></th>
       <th scope="col"><div class='text-center'>Saldo    </div></th>
     </tr> 
   </thead>
@@ -46,8 +46,8 @@
                                id: nil)
           %>
         </td>
-        <% [%w[credit  Credito], 
-            %w[debit   Debito],
+        <% [%w[credit  Entrada], 
+            %w[debit   Saída],
             %w[balance Saldo]].each do |attr, header| %>
             <td>
               <%= render 'txcell', header: header, value: t.send(attr) %>
@@ -62,8 +62,8 @@
   <thead>
     <tr>
       <th></th>
-      <th class='text-center'>Credito</th>
-      <th class='text-center'>Debito</th>
+      <th class='text-center'>Entrada</th>
+      <th class='text-center'>Saída</th>
     </tr>
   </thead>
   <tbody>
