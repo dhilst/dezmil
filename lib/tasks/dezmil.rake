@@ -9,5 +9,14 @@ namespace :dezmil do
     end
   end
 
+  task my_transactions: :environment do
+    Rails.logger.silence do
+      User.find_by(email: 'danielhilst@gmail.com').transactions.order('transactions.id desc').each do |t|
+        printf "% 5d % 5d %-20s %-20s %-70s %10.2f %10.2f\n", t.statement.id, t.id, t.statement.date.to_date, t.date, t.memo, t.amount, t.balance 
+      end
+    end
+  end
+
   task stbu: :statements_and_transactions_by_user
+  task t: :my_transactions
 end
