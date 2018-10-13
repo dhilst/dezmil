@@ -13,7 +13,6 @@
 <table class="table table-striped large-table">
   <thead>
     <tr>
-      <th scope="col"><div class='text-center'>#</div></th>
       <th scope="col"><div class='text-center'>Data</div></th>
       <th scope="col"><div class='text-center'>Memo</div></th>
       <th scope="col"></th>
@@ -26,8 +25,6 @@
   <tbody>
     <% @transactions.each do |t| %>
       <tr>
-        <td>
-          <%= t.id %>
         <td>
           <%= render 'txcell', header: 'Data', value: t.date %>
         </td>
@@ -66,8 +63,8 @@
     <% end %>
   </tbody>
 </table>
-<% unless @grouped %>
-<table class="table table-hover">
+<h3>Total</h3>
+<table class="table">
   <tbody>
     <tr>
       <th>Entrada</th>
@@ -77,13 +74,14 @@
       <th>Saída</th>
       <td id='total-debit'  class='text-center'><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %></td>
     </tr>
+    <% if @satement %>
     <tr>
       <th>Saldo em <%= l(@statement.date, format: "%d/%m/%Y") %></th>
       <td                   class='text-center'><%= @statement.balance%></td>
     </tr>
+    <% end %>
   </tbody>
 </table>
-<% end %>
 <% else %>
   Sem dados!
 <% end %>
