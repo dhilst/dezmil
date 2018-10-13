@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
 	before_action :authenticate_user!, :set_date
+  before_action :load_statement
 
   def index
     redirect_to "/transactions/#{@d.year}/#{@d.month}"
@@ -11,7 +12,7 @@ class TransactionsController < ApplicationController
   end
 
   def month
-    @transactions = current_user.transactions.month(@d).order('date, memo')
+    @transactions = current_user.transactions.month(@d).order('id desc')
     if params[:category]
       session.delete :groupby
       @transactions = @transactions.joins(:category).where('categories.name = ?', params[:category])
@@ -97,5 +98,9 @@ class TransactionsController < ApplicationController
         @transactions = @transactions.order('date, memo')
         @grouped = false
       end
+    end
+
+    def load_statement
+      @statement = current_user.statements.where('statements.date between ? and ?', @d.beginning_of_month, @d.end_of_month).order('statements.date').last
     end
 end
