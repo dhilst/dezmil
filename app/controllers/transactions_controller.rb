@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
   end
 
   def month
-    @transactions = current_user.transactions.month(@d).order(:date, :memo)
+    @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]
       session.delete :groupby
       @transactions = @transactions.joins(:category).where('categories.name = ?', params[:category])

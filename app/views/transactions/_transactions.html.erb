@@ -19,14 +19,14 @@
       <th scope="col"><div class='text-center'>Categoria</div></th>
       <th scope="col"><div class='text-center'>Entrada</div></th>
       <th scope="col"><div class='text-center'>Saída</div></th>
-      <!-- <th scope="col"><div class='text-center'>Saldo    </div></th> -->
+      <th scope="col"><div class='text-center'>Saldo    </div></th>
     </tr> 
   </thead>
   <tbody>
     <% @transactions.each do |t| %>
       <tr>
         <td>
-          <%= render 'txcell', header: 'Data', value: t.date %>
+          <%= render 'txcell', header: 'Data', value: l(t.date, format: "%d/%m/%Y") %>
         </td>
         <td>
           <div class='text-left mobile-only'>
@@ -53,7 +53,7 @@
         </td>
         <% [%w[credit  Entrada], 
             %w[debit   Saída],
-           #  %w[balance Saldo]
+            %w[balance Saldo]
            ].each do |attr, header| %>
             <td class="<%= 'empty' if t.send(attr).nil? %>">
               <%= render 'txcell', header: header, value: t.send(attr) %>
@@ -74,7 +74,7 @@
       <th>Saída</th>
       <td id='total-debit'  class='text-center'><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %></td>
     </tr>
-    <% if @satement %>
+    <% if @statement %>
     <tr>
       <th>Saldo em <%= l(@statement.date, format: "%d/%m/%Y") %></th>
       <td                   class='text-center'><%= @statement.balance%></td>
