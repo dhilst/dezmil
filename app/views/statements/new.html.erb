@@ -1,10 +1,15 @@
-<h5>Como importar seu estrato</h5>
-<ol>
-  <li>Acesse o internet banking do seu banco e navege até a parte de extratos.</li>
-  <li>Selecione o periodo desejado.</li>
-  <li>Exporte o extrato. O formato deve ser OFX. Esse é o mesmo formato suportado pelo <i>Money 98, 99 e 2000</i></li>
-  <li>Salve o arquivo localmente. Repare que a extensão do arquivo é <code>.ofx</code></li>
-</ol>
+
+<h5>Como importar seu extrato</h5>
+<div style='font-size: 0.8rem'>
+  <ol>
+    <li>Acesse o internet banking do seu banco: <i>Conta Corrente</i> <%= fa_icon 'caret-right' %> <i>Extrato</i></li>
+    <li>Selecione o período desejado.</li>
+    <li>Faça o download do extrato para <i>Money 98, 99 ou 2000</i>, a extensão do arquivo deve ser <code>.ofx</code></li>
+    <li>Clique no bottão <button onclick="" class="btn btn-primary btn-sm" style='height: 20px; font-size: 0.5rem; pointer-events: none' ><%= fa_icon 'cloud-upload' %> Procurar</button></li>
+    <li>Selecione o extrato baixado anteriormente</li>
+  </ol>
+</div>
+
 <%= form_for(@statement) do |f| %>
   <%= f.label :file, class: 'btn btn-primary' do %>
     <%= fa_icon 'cloud-upload' %><span id='upload-text'> Procurar</span>
