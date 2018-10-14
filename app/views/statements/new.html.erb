@@ -1,4 +1,33 @@
-<%= form_for @statement do |f| %>
-  <%= f.file_field :file, class: 'form-control-file'%>
-  <%= f.submit %>
+<h5>Como importar seu estrato</h5>
+<ol>
+  <li>Acesse o internet banking do seu banco e navege até a parte de extratos.</li>
+  <li>Selecione o periodo desejado.</li>
+  <li>Exporte o extrato. O formato deve ser OFX. Esse é o mesmo formato suportado pelo <i>Money 98, 99 e 2000</i></li>
+  <li>Salve o arquivo localmente. Repare que a extensão do arquivo é <code>.ofx</code></li>
+</ol>
+<%= form_for(@statement) do |f| %>
+  <%= f.label :file, class: 'btn btn-primary' do %>
+    <%= fa_icon 'cloud-upload' %><span id='upload-text'> Procurar</span>
+  <% end %>
+  <%= f.file_field :file, style: 'display: none' %>
 <% end %>
+<script>
+  $(document).on('ready turbolinks:load', function(){
+
+    var isOfx = function(filename){
+      return !!filename.match(/\.ofx$/i);
+    }
+
+    $('#statement_file').change(function(e){
+      var filename = this.files[0].name;
+      if (!isOfx(filename)) {
+        $('label.btn').removeClass('btn-primary').addClass('btn-danger');
+        alert('Extensão não suportada! Escolha um arquivo com extensão .ofx');
+        e.preventDefault();
+        return;
+      }
+
+      $('#new_statement').submit();
+    });
+  });
+</script>

@@ -12,6 +12,12 @@ class TransactionsController < ApplicationController
   end
 
   def month
+    # Redirect user to import if no statements is found
+    if current_user.statements.count == 0
+      redirect_to(controller: :statements, action: :new) 
+      return
+    end
+
     @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]
       session.delete :groupby

@@ -7,14 +7,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
+        <li class="nav-item <%= 'active' if params[:controller] == 'transactions' %>">
           <%= link_to 'Extrato', '/', class: 'nav-link' %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <%= 'active' if params[:controller] == 'statements'%>">
           <%= link_to 'Importar', '/statements/new', class: 'nav-link' %>
         </li>
         <div class="dropdown-divider"></div>
-        <li class="nav-item">
+        <li class="nav-item <%= 'active' if params[:controller] == 'devise/invitations' %>">
           <%= link_to 'Convide um amigo', new_user_invitation_path, class: 'nav-link' %>
         </li>
         <div class="dropdown-divider"></div>
