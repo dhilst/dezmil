@@ -82,7 +82,12 @@
 
     .category {
       select {
-        max-width: 50%;
+        padding: 0 2px 0 0;
+        height: 20px;
+        max-width: 40%;
+        font-size: 0.70rem;
+        line-height: 0.75rem;
+        text-align: left;
       }
     }
   }
