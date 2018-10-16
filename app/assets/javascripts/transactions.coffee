@@ -17,6 +17,10 @@ ready = ->
 
   $('#groupby').change (e) ->
     console.debug "New filter #{e.target.value} #{year} #{month}"
+    if year == undefined || month == undefined
+      now = new Date()
+      year = now.getFullYear()
+      month = now.getMonth()
     window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
 
     
