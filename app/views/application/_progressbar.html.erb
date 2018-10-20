@@ -1,0 +1,7 @@
+<div class="progress">
+  <% if progress %>
+    <div class="progress-bar bg-success" style="width: <%= progress %>%">
+      <% if progress > 10 %><%= progress %>%<% end %>
+    </div>
+  <% end %>
+</div>
