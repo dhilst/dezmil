@@ -3,3 +3,4 @@
 <p>Investido: <%= @total %></p>
 <p>Média de <%= @avg_by_month.round(2) %> pelos ultimos <%= @months %> meses.</p>
 <p>Você vai ter <%= @goal %> em <%= l(@estimated, format: '%d/%m/%Y') %></p>
+<%= react_component("HelloWorld", { greeting: "Hello from react-rails."  }) %>
