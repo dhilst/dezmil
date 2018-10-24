@@ -21,7 +21,7 @@ class TransactionsController < ApplicationController
     @goaltotal = current_user.transactions
       .joins(:category)
       .where(categories: { name: %w[invest divestiment] })
-      .sum(:amount)
+      .sum(:amount) * -1
     @goalprogress = @goaltotal * 100 / 10000
     @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]
