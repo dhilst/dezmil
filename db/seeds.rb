@@ -102,3 +102,8 @@ Category.find_or_create_by(
   name: 'yield',
   color: '#9cfb62'
 )
+Category.find_or_create_by( 
+  display_name: 'Outros',
+  name: 'others',
+  color: '#a10afa'
+)
