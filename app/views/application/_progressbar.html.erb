@@ -1,7 +1,14 @@
 <div class="progress">
   <% if progress %>
+     <% if progress > 60 %>
+       <% color =  "#ffffff" %>
+     <% else %>
+       <% color = "#000000" %>
+     <% end %>
     <div class="progress-bar bg-success" style="width: <%= progress %>%">
-      <% if progress > 10 %><%= progress %>%<% end %>
+      <span class="justify-content-center d-flex position-absolute w-100" style="color: <%= color %>" >
+        <%= text %>
+      </span>
     </div>
   <% end %>
 </div>

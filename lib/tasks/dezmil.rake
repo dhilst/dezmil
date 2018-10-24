@@ -17,6 +17,12 @@ namespace :dezmil do
     end
   end
 
-  task stbu: :statements_and_transactions_by_user
+  task :help do
+    p 'dezmil:stbu'
+    p 'dezmil:t'
+  end
+
+  task s: :statements_and_transactions_by_user
   task t: :my_transactions
+  task defaut: :help
 end
