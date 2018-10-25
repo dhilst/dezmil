@@ -28,9 +28,11 @@ class GoalsController < ApplicationController
 
   def update
     @goal = Goal.find(params[:id])
-    if !@goal.update(params[:goal])
+    if !@goal.update(params.require(:goal).permit(:category_id, :max).merge(user: current_user))
       render :edit
+      return
     end
+    redirect_to action: :index, notice: 'Meta editada'
   end
 
   def destroy

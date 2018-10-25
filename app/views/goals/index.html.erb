@@ -8,12 +8,13 @@
     </tr>
   </thead>
   <% @goals.each do |goal| %>
+    <% catdname = Category.find(goal.category_id).display_name %>
     <tr>
-      <td><%= Category.find(goal.category_id).display_name %></td>
+      <td><%= catdname %></td>
       <td><%= goal.max %></td>
       <td>
         <%= link_to edit_goal_url(goal) do %><%= fa_icon 'edit' %><% end %>
-        <%= link_to goal_url(goal), method: :delete do %><%= fa_icon 'trash' %><% end %>
+        <%= link_to goal_url(goal), method: :delete, data: { confirm: "Deletar meta para #{catdname}?" } do %><%= fa_icon 'trash' %><% end %>
       </td>
     </tr>
   <% end %>
