@@ -21,7 +21,7 @@ Boa sorte! 😁👍
   <div class='form-group'>
     <%= f.label 'Categoria', for: :goal_category %>
     <%= f.select :category_id,
-      options_from_collection_for_select(Category.order(:display_name), :id, :display_name, @goal.category.id),
+      options_from_collection_for_select(Category.order(:display_name), :id, :display_name, @goal.category&.id),
       { include_blank: 'Selecione' },
       { class: 'form-control' } 
     %>
