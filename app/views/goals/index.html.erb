@@ -1,9 +1,16 @@
-<h1>Meta: <%= @goal %></h1>
-<%= render partial: 'progressbar', locals: { progress: @progress } %>
-<p>Investido: <%= @total %></p>
-<p>Média de <%= @avg_by_month.round(2) %> pelos ultimos <%= @months %> meses.</p>
-<p>Você vai ter <%= @goal %> em <%= l(@estimated, format: '%d/%m/%Y') %></p>
-<svg width="400" height="110">
-  <rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"></rect>
-</svg>
-<%= react_component(>"HelloWorld", { greeting: "Hello from react-rails."  }) %>
+<%= link_to 'Nova meta!', new_goal_path, class: 'btn btn-primary' %>
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Categoria</th>
+      <th>Meta</th>
+      <td></td>
+    </tr>
+  </thead>
+  <% @goals.each do |goal| %>
+    <tr>
+      <td><%= Category.find(goal.category_id).display_name %></td>
+      <td><%= goal.max %></td>
+    </tr>
+  <% end %>
+</table>

@@ -13,7 +13,19 @@
         <tr>
           <td><%= link_to t.display_name, "/transactions/#{@d.year}/#{@d.month}?category=#{t.category_name}", class: 'no-text-decoration' %></td>
           <td><%= t._credit %></td>
-          <td><%= t._debit %></td>
+          <td>
+            <span>
+            <%= t._debit %>
+            <% if t._debit && t._debit < 0 %>
+              <% goal = current_user.goals.joins(:category).find_by(categories: { name: t.category_name}) %>
+              <% if goal %>
+                <small style='font-size: 0.5rem'>
+                  <%= (t._debit * -1 * 100 / goal.max).round %> %
+                </small>
+              <% end %>
+            <% end %>
+            </span>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -1,19 +1,38 @@
 class GoalsController < ApplicationController
+
   def index
-    raise ActionController::RoutingError.new('Not Found') unless current_user.email == 'danielhilst@gmail.com'
-    @goal = 10_000
-    @transactions = current_user.transactions
-      .joins(:category)
-      .where('categories.name = ? or categories.name = ?', 'invest', 'divestiment')
-    total_invested = 0
-    @last_months_sum = @transactions.sum(:amount) * -1
-    @total = total_invested + @last_months_sum
-    @progress = @total * 100.0 / @goal
-    @progress = 0 if @progress < 0
-    @months = @transactions.count("extract(month from transactions.date)")
-    @avg_by_month = @last_months_sum / @months
-    missing_amount = @goal - @total
-    missing = missing_amount / @avg_by_month
-    @estimated = Time.zone.today.beginning_of_month + missing.to_i.months
+    @goals = current_user.goals
+  end
+
+  def new
+    @goal = Goal.new
+  end
+
+  def edit
+    @goal = Goal.new(params[:id])
+  end
+
+  def create
+    p = params.require(:goal).permit(:category, :max).merge(user: current_user)
+    @goal = Goal.new(p)
+    if !@goal.save
+      render :edit
+    end
+    redirect_to :index, notice: 'Meta criada'
+  end
+
+  def show
+    @goal = Goal.find(params[:id])
+  end
+
+  def update
+    @goal = Goal.find(params[:id])
+    if !@goal.update(params[:goal])
+      render :edit
+    end
+  end
+
+  def destroy
+    render :show unless Goal.find(params[:id]).destroy
   end
 end

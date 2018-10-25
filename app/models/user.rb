@@ -5,4 +5,5 @@ class User < ApplicationRecord
 
 	has_many :statements
 	has_many :transactions, through: :statements
+  has_many :goals
 end
