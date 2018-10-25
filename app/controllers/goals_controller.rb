@@ -9,16 +9,17 @@ class GoalsController < ApplicationController
   end
 
   def edit
-    @goal = Goal.new(params[:id])
+    @goal = Goal.find(params[:id])
   end
 
   def create
-    p = params.require(:goal).permit(:category, :max).merge(user: current_user)
+    p = params.require(:goal).permit(:category_id, :max).merge(user: current_user)
     @goal = Goal.new(p)
     if !@goal.save
       render :edit
+      return 
     end
-    redirect_to :index, notice: 'Meta criada'
+    redirect_to action: :index, notice: 'Meta criada'
   end
 
   def show
@@ -33,6 +34,7 @@ class GoalsController < ApplicationController
   end
 
   def destroy
-    render :show unless Goal.find(params[:id]).destroy
+    Goal.find(params[:id]).destroy
+    redirect_to action: :index, notice: 'Meta removida'
   end
 end

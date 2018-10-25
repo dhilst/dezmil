@@ -11,6 +11,10 @@
     <tr>
       <td><%= Category.find(goal.category_id).display_name %></td>
       <td><%= goal.max %></td>
+      <td>
+        <%= link_to edit_goal_url(goal) do %><%= fa_icon 'edit' %><% end %>
+        <%= link_to goal_url(goal), method: :delete do %><%= fa_icon 'trash' %><% end %>
+      </td>
     </tr>
   <% end %>
 </table>
