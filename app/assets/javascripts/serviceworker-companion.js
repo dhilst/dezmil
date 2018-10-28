@@ -12,4 +12,6 @@ if (navigator.serviceWorker) {
     }).catch(function(error) {
       console.error('Service worker registration error', error);
     });
+} else {
+  console.log('FUCK! navigator.serviceWorker is', navigator.serviceWorker);
 }
