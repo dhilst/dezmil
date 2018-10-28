@@ -1,4 +1,5 @@
 if (navigator.serviceWorker) {
+  console.log('Registering serviceworker');
   navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
     .then(async function(reg) {
       console.log('[Companion]', 'Service worker registered!', reg.update());
