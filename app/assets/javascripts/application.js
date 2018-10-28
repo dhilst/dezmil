@@ -19,9 +19,9 @@
 //= require bootstrap
 //= require hammer
 //= require jquery.hammer
-//= require transaction
+//= require transactions
 //= require serviceworker-companion
 
 $(function() {
  $('#search').focus();
-})
+});
