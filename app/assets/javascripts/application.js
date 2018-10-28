@@ -19,8 +19,7 @@
 //= require bootstrap
 //= require hammer
 //= require jquery.hammer
-//= require_tree .
-//= stub serviceworker.js.erb
+//= require transaction
 //= require serviceworker-companion
 
 $(function() {

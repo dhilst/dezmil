@@ -9,6 +9,5 @@ if (navigator.serviceWorker) {
       } catch (error) {
         console.erro('service worker update error', error);
       }
-      
     });
 }
