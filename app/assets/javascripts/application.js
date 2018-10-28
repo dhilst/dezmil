@@ -20,6 +20,7 @@
 //= require hammer
 //= require jquery.hammer
 //= require_tree .
+//= require serviceworker-companion
 
 
 $(function() {

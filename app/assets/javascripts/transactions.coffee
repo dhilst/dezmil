@@ -6,10 +6,15 @@ closeAlerts = ->
   console.log 'Closing alerts'
   $('.alert').alert 'close'
 
+closeAlertsAfterSomeTime = ->
+  setTimeout closeAlerts, 3000
+
 ready = ->
   console.info 'transactions.coffee loaded', new Date()
 
-  setTimeout closeAlerts, 2000
+  closeAlertsAfterSomeTime()
+
+  
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
@@ -23,7 +28,7 @@ ready = ->
       month = now.getMonth()
     window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
 
-    
+
   $('.category-select').change (e) ->
     e.preventDefault()
     console.debug "Category changed"
@@ -59,10 +64,13 @@ ready = ->
                 $(tselect).parent().parent().find('td .loading').hide(200)
                 $(tselect).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
 
-          
-          
       error: ->
         $(e.target).value('ERRO').attr('background-color', '#ff0000')
         console.error arguments
 
 $(document).on('ready turbolinks:load', ready)
+
+navigator.serviceWorker.addEventListener 'message', (event) ->
+  console.log('offline notification received')
+  $('<div class="alert alert-danger alert-dismissable">Sem conexão</div>').appendTo('.alerts').slideDown('fast')
+  closeAlertsAfterSomeTime()
