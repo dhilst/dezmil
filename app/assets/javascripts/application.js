@@ -20,8 +20,8 @@
 //= require hammer
 //= require jquery.hammer
 //= require_tree .
+//= stub serviceworker.js.erb
 //= require serviceworker-companion
-
 
 $(function() {
  $('#search').focus();
