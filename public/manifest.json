@@ -1,0 +1,16 @@
+{
+  "short_name": "dzm",
+  "name": "dezmil",
+  "icons": [
+    {
+      "src": "/images/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#3367D6",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#ffffff"
+}
