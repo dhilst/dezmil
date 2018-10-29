@@ -17,10 +17,8 @@
 //= require jquery-ui
 //= require popper
 //= require bootstrap
-//= require hammer
-//= require jquery.hammer
 //= require transactions
-//= require serviceworker-companion
+//= require service-worker-registration
 
 $(function() {
  $('#search').focus();

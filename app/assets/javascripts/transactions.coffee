@@ -14,7 +14,6 @@ ready = ->
 
   closeAlertsAfterSomeTime()
 
-  
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
@@ -67,12 +66,6 @@ ready = ->
       error: ->
         $(e.target).value('ERRO').attr('background-color', '#ff0000')
         console.error arguments
-
-  if navigator.serviceWorker
-    navigator.serviceWorker.addEventListener 'message', (event) ->
-      console.log('offline notification received')
-      $('<div class="alert alert-danger alert-dismissable">Sem conexão</div>').appendTo('.alerts').slideDown('fast')
-      closeAlertsAfterSomeTime()
 
 $(document).on('ready turbolinks:load', ready)
 
