@@ -3,7 +3,12 @@
   "name": "dezmil",
   "icons": [
     {
-      "src": "/images/icons-192.png",
+      "src": "/images/icons192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons512x512.png",
       "type": "image/png",
       "sizes": "192x192"
     }
