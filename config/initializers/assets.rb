@@ -13,3 +13,4 @@ Rails.application.config.assets.version = '1.0'
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.configuration.assets.precompile += %w[manifest.json.erb]
+Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]

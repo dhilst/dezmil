@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 	root to: 'transactions#index'
+  get '/offline', to: 'application#offline' 
 
 	authenticate :user do
 		resources :statements, only: %i[new create]
 
 		namespace :transactions do
 			get '/',                             action: :index
+      get '/routes',                       action: :routes
       get '/statement/:id',                action: :statement
 			get '/:year/:month',                 action: :month
 			get '/:year/:month/fuzzy/',          action: :search

@@ -18,8 +18,9 @@
 //= require popper
 //= require bootstrap
 //= require transactions
-//= require service-worker-registration
+//= require serviceworker-companion
 
-$(function() {
- $('#search').focus();
+$(function(){
+  $('#search').focus();
 });
+
