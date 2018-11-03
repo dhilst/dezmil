@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
 	before_action :authenticate_user!, :set_date
+  before_action :set_date
   before_action :load_statement
 
   def index
@@ -56,7 +57,7 @@ class TransactionsController < ApplicationController
   def groupby
     session[:groupby] = params[:group]
     logger.info "Session changed :groupby => #{session[:groupby]}"
-    redirect_to action: :index
+    redirect_to action: :month, year: @d.year, month: @d.month
   end
 
   def set_category
@@ -65,7 +66,7 @@ class TransactionsController < ApplicationController
 
   def routes
     dates = current_user.transactions.select('to_char(transactions.date, \'YYYY/MM\') as d').group(:d).map(&:d)
-    
+
     routes = []
     dates.map do |month_route|
       routes << "/transactions/#{month_route}"

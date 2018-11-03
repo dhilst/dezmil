@@ -22,10 +22,13 @@ ready = ->
   $('#groupby').change (e) ->
     console.debug "New filter #{e.target.value} #{year} #{month}"
     if year == undefined || month == undefined
+      console.log('[transactions] undefined year and month')
       now = new Date()
       year = now.getFullYear()
       month = now.getMonth()
-    window.location = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
+    loc = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
+    console.log("[transactions] location #{loc}");
+    window.location = loc
 
 
   $('.category-select').change (e) ->
