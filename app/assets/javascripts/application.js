@@ -30,13 +30,10 @@ $(document).on('ready turbolinks:load', function(){
     if (isOnline === true) {
       $.ajax('/ping').catch(function(){
         $('#is-offline').slideDown().delay(5000).slideUp();
-        console.log('isOnline = false')
         isOnline = false;
       });
     } else if (isOnline === false) {
       $.ajax('/ping').then(function(){
-        $('#is-online').slideDown().delay(5000).slideUp();
-        console.log('isOnline = true');
         isOnline = true;
       });
     }
