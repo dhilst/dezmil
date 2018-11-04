@@ -12,6 +12,10 @@ class TransactionsController < ApplicationController
   end
 
   def month
+    if params[:pattern].present?
+      return search
+    end
+
     # Redirect user to import if no statements is found
     if current_user.statements.count == 0
       redirect_to(controller: :statements, action: :new) 
@@ -38,20 +42,6 @@ class TransactionsController < ApplicationController
     render :index
   end
 
-	def search
-
-    session.delete :groupby
-
-		if params[:pattern].empty?
-			redirect_to action: :index
-			return
-		end
-
-		@transactions = current_user.transactions.month(@d)
-      .agrep(params[:pattern], 0.9)
-    groupby_filter
-		render :index
-	end
 
   def groupby
     session[:groupby] = params[:group]
@@ -78,54 +68,69 @@ class TransactionsController < ApplicationController
   end
 
 	private
-		def set_date
-			year = (params[:year] || Date.today.year).to_i
-			month = (params[:month] || Date.today.month).to_i
-      @d = Date.new(year, month)
+
+	def search
+    session.delete :groupby
+
+		if params[:pattern].empty?
+			redirect_to action: :index
+			return
 		end
 
-    def groupby_filter
-      group = session[:groupby]
-      return if group == 'ungrouped'
-      logger.debug "filtering transactoins by #{group}"
-      @total_in  = current_user.transactions.month(@d).where('transactions.amount > 0').sum('transactions.amount')
-      @total_out = current_user.transactions.month(@d).where('transactions.amount < 0').sum('transactions.amount')
-      case group
-      when 'day'
-        @transactions = current_user.transactions
-          .select('transactions.date,
-                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
-                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
-          .month(@d)
-          .group('transactions.date')
-        @grouped = true
-      when 'week'
-        @transactions = current_user.transactions
-          .select('extract(\'week\' from transactions.date)::int as date,
-                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
-                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
-          .month(@d)
-          .group('extract(\'week\' from transactions.date)')
-        @grouped = true
-      when 'category'
-        @transactions = current_user.transactions
-          .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name, categories.id,
-                   categories.name as category_name,
-                   sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
-                   sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
-          .joins(:category)
-          .month(@d)
-          .group('categories.id')
-          .order('_debit')
-        @categorygroup = true
-        @grouped = true
-      else
-        @transactions = @transactions.order('date, memo')
-        @grouped = false
-      end
-    end
+		@transactions = current_user.transactions.month(@d)
+      .agrep(params[:pattern], 0.9)
+    groupby_filter
+		render :index
+	end
 
-    def load_statement
-      @statement = current_user.statements.where('statements.date between ? and ?', @d.beginning_of_month, @d.end_of_month).order('statements.date').last
+  def set_date
+    year = (params[:year] || Date.today.year).to_i
+    month = (params[:month] || Date.today.month).to_i
+    @d = Date.new(year, month)
+  end
+
+  def groupby_filter
+    group = session[:groupby]
+    return if group == 'ungrouped'
+    logger.debug "filtering transactoins by #{group}"
+    @total_in  = current_user.transactions.month(@d).where('transactions.amount > 0').sum('transactions.amount')
+    @total_out = current_user.transactions.month(@d).where('transactions.amount < 0').sum('transactions.amount')
+    case group
+    when 'day'
+      @transactions = current_user.transactions
+        .select('transactions.date,
+                 sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                 sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+        .month(@d)
+        .group('transactions.date')
+      @grouped = true
+    when 'week'
+      @transactions = current_user.transactions
+        .select('extract(\'week\' from transactions.date)::int as date,
+                 sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                 sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+        .month(@d)
+        .group('extract(\'week\' from transactions.date)')
+      @grouped = true
+    when 'category'
+      @transactions = current_user.transactions
+        .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name, categories.id,
+                 categories.name as category_name,
+                 sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
+                 sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
+        .joins(:category)
+        .month(@d)
+        .group('categories.id')
+        .order('_debit')
+      @categorygroup = true
+      @grouped = true
+    else
+      @transactions = @transactions.order('date, memo')
+      @grouped = false
     end
+  end
+
+  def load_statement
+    @statement = current_user.statements.where('statements.date between ? and ?', @d.beginning_of_month, @d.end_of_month).order('statements.date').last
+  end
 end
