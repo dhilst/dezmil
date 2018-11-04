@@ -3,24 +3,24 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 closeAlerts = ->
-  console.log 'Closing alerts'
+  console.log '[transactions] Closing alerts'
   $('.alert').alert 'close'
 
 closeAlertsAfterSomeTime = ->
   setTimeout closeAlerts, 3000
 
 ready = ->
-  console.info 'transactions.coffee loaded', new Date()
+  console.info '[transactions] transactions.coffee loaded', new Date()
 
   closeAlertsAfterSomeTime()
 
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
-    console.log "year #{year}, month #{month}"
+    console.log "[transactions] year #{year}, month #{month}"
 
   $('#groupby').change (e) ->
-    console.debug "New filter #{e.target.value} #{year} #{month}"
+    console.debug "[transactions] New filter #{e.target.value} #{year} #{month}"
     if year == undefined || month == undefined
       console.log('[transactions] undefined year and month')
       now = new Date()
@@ -33,7 +33,7 @@ ready = ->
 
   $('.category-select').change (e) ->
     e.preventDefault()
-    console.debug "Category changed"
+    console.debug "[transactions] Category changed"
     tid = $(e.target).data 'transaction'
     cat = e.target.value
     color = $(e.target).find("[value=#{cat}]").data('color')
@@ -44,7 +44,7 @@ ready = ->
       data:
         authenticity_token: window._token
       success: ->
-        console.log 'Success'
+        console.log '[transactions] Success'
         $(e.target).css('background-color', color)
         $(e.target).parent().parent().find('td .loading').hide(200)
         $(e.target).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
@@ -68,7 +68,7 @@ ready = ->
 
       error: ->
         $(e.target).value('ERRO').attr('background-color', '#ff0000')
-        console.error arguments
+        console.error '[transactions] ', arguments
 
 $(document).on('ready turbolinks:load', ready)
 

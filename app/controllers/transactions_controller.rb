@@ -1,6 +1,5 @@
 class TransactionsController < ApplicationController
 	before_action :authenticate_user!, :set_date
-  before_action :set_date
   before_action :load_statement
 
   def index
@@ -82,7 +81,7 @@ class TransactionsController < ApplicationController
 		def set_date
 			year = (params[:year] || Date.today.year).to_i
 			month = (params[:month] || Date.today.month).to_i
-			@d = Date.new(year, month)
+      @d = Date.new(year, month)
 		end
 
     def groupby_filter

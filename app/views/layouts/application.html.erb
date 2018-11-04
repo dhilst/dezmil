@@ -17,8 +17,12 @@
     <%= render 'header' %>
     <div class='alerts'>
       <% flash.each do |level, message| %>
-        <div class="alert alert-<%= level %> alert-dismissible fade show"><%= message %></div>
+        <div class="alert alert-<%= level %> fade show"><%= message %></div>
       <% end %>
+    </div>
+    <div class='online-status'>
+      <div id='is-online' class='alert-info' style='display: none'>Online</div>
+      <div id='is-offline' class='alert-info alert-dismissable' style='display: none'>Offline</div>
     </div>
     <%= yield %>
     <%= render 'footer' %>

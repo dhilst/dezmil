@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 	root to: 'transactions#index'
   get '/offline', to: 'application#offline' 
+  get '/ping', to: 'application#ping'
 
 	authenticate :user do
 		resources :statements, only: %i[new create]

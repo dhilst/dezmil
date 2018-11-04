@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require serviceworker-companion
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
@@ -18,9 +19,26 @@
 //= require popper
 //= require bootstrap
 //= require transactions
-//= require serviceworker-companion
+//
 
-$(function(){
+
+$(document).on('ready turbolinks:load', function(){
   $('#search').focus();
-});
 
+  var isOnline = false;
+  setInterval(function(){
+    if (isOnline === true) {
+      $.ajax('/ping').catch(function(){
+        $('#is-offline').slideDown().delay(5000).slideUp();
+        console.log('isOnline = false')
+        isOnline = false;
+      });
+    } else if (isOnline === false) {
+      $.ajax('/ping').then(function(){
+        $('#is-online').slideDown().delay(5000).slideUp();
+        console.log('isOnline = true');
+        isOnline = true;
+      });
+    }
+  }, 3000);
+});
