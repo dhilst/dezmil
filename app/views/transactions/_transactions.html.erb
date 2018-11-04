@@ -30,7 +30,7 @@
                 <small>Memo</small>
               </div>
               <div class='memo'>
-                <%= link_to("#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/fuzzy/?pattern=".html_safe + t.memo, class: 'no-text-decoration') %>
+                <%= link_to("#{t.memo}", "/transactions/#{@d.year}/#{@d.month}/?pattern=".html_safe + t.memo, class: 'no-text-decoration') %>
               </div>
             </td>
             <td class='status empty'>
