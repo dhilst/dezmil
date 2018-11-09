@@ -23,7 +23,7 @@
         <% @transactions.each do |t| %>
           <tr>
             <td>
-              <%= render 'txcell', header: 'Data', value: l(t.date, format: "%d/%m/%Y") %>
+              <%= render 'txcell', header: 'Data', value: l(t.date, format: "%A - %d/%m/%Y") %>
             </td>
             <td>
               <div class='text-left mobile-only'>
