@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 closeAlertOnClick = (e) ->
-  $(e.target).parent('.alert-dismissable').fadeOut 300, ->
+  $(e.target).parent('.alert-dismissable').slideUp 300, ->
     $(e.target).alert('close')
 
 ready = ->
@@ -14,9 +14,9 @@ ready = ->
   alertsChildren = alerts.find('.alert')
   alertsChildren.each (i) ->
     show = ->
-      $(alertsChildren[i]).show("slide", { direction: "right"  })
-    setTimeout(show, i*200)
-      
+      #$(alertsChildren[i]).show("slide", { direction: "right"  })
+      $(alertsChildren[i]).addClass('alert-show')
+    setTimeout(show, i*100)
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
@@ -69,4 +69,3 @@ ready = ->
         console.error '[transactions] ', arguments
 
 $(document).on('ready turbolinks:load', ready)
-

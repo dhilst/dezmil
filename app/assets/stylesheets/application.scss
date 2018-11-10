@@ -99,12 +99,19 @@
   align-items: stretch;
   flex-direction: column;
   .alert {
-    display: none;
+    position: relative;
+    right: -400px;
+    margin-bottom: 0;
+    word-wrap: break-word;
+  }
+  .alert-show {
+    right: -0px;
+    transition: right 1s;
   }
 
   @media only screen and (min-width: 760px) {
     align-items: flex-end;
-    .alert {
+    .alert, .alert-show {
       width: 400px;
     }
   }
