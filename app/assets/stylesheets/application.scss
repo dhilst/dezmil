@@ -95,12 +95,18 @@
 }
 
 .alerts {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
   .alert {
-    @media only screen and (min-width: 760px) {
-      float: right;
-      min-width: 400px;
-    }
     display: none;
+  }
+
+  @media only screen and (min-width: 760px) {
+    align-items: flex-end;
+    .alert {
+      width: 400px;
+    }
   }
 
   .fa-close {

@@ -12,7 +12,6 @@ class TransactionsController < ApplicationController
   end
 
   def month
-    flash[:info] = 'Notice something'
     if params[:pattern].present?
       return search
     end

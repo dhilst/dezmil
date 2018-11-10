@@ -3,29 +3,31 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 closeAlertOnClick = (e) ->
-  console.log('closing', e.target, 'on click')
   $(e.target).parent('.alert-dismissable').fadeOut 300, ->
     $(e.target).alert('close')
 
 ready = ->
   console.info '[transactions] transactions.coffee loaded', new Date()
 
-  $('.alerts').on('click', '.alert-dismissable .fa-close', closeAlertOnClick)
-  $('.alert').show("slide", { direction: "right"  })
+  alerts = $('.alerts')
+  alerts.on('click', '.alert-dismissable .fa-close', closeAlertOnClick)
+  alertsChildren = alerts.find('.alert')
+  alertsChildren.each (i) ->
+    show = ->
+      $(alertsChildren[i]).show("slide", { direction: "right"  })
+    setTimeout(show, i*200)
+      
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
-    console.log "[transactions] year #{year}, month #{month}"
 
   $('#groupby').change (e) ->
     console.debug "[transactions] New filter #{e.target.value} #{year} #{month}"
     if year == undefined || month == undefined
-      console.log('[transactions] undefined year and month')
       now = new Date()
       year = now.getFullYear()
       month = now.getMonth()
     loc = "/transactions/#{year}/#{month}/groupby/#{e.target.value}"
-    console.log("[transactions] location #{loc}");
     window.location = loc
 
 
@@ -42,7 +44,6 @@ ready = ->
       data:
         authenticity_token: window._token
       success: ->
-        console.log '[transactions] Success'
         $(e.target).css('background-color', color)
         $(e.target).parent().parent().find('td .loading').hide(200)
         $(e.target).parent().parent().find('td .hidden.success').show(200).delay(500).hide(200)
@@ -58,7 +59,6 @@ ready = ->
               data:
                 authenticity_token: window._token
               success: ->
-                console.log 'Success'
                 $(tselect).val(cat)
                 $(tselect).css('background-color', color)
                 $(tselect).parent().parent().find('td .loading').hide(200)
