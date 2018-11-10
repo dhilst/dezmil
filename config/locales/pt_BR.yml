@@ -4,6 +4,7 @@
   category: categoria
   date:
     month_names:
+      - nil
       - Janeiro
       - Fevereiro
       - Março
