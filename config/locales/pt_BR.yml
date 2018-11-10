@@ -8,3 +8,17 @@
       - Quinta
       - Sexta
       - Sábado
+  devise:
+    invitations:
+      send_instructions: "Um convite foi enviado para %{email}."
+      new:
+        header: "Convide seu amigo"
+        submit_button: 'Enviar convite'
+  errors:
+    messages:
+      not_saved: "Ops, ocorreu um erro .."
+    models:
+      users:
+        attributes:
+          email:
+            blank: "e-mail em branco"
