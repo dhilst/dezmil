@@ -2,18 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-closeAlerts = ->
-  console.log '[transactions] Closing alerts'
-  $('.alert').alert 'close'
-
-closeAlertsAfterSomeTime = ->
-  setTimeout closeAlerts, 3000
+closeAlertOnClick = (e) ->
+  console.log('closing', e.target, 'on click')
+  $(e.target).parent('.alert-dismissable').fadeOut 300, ->
+    $(e.target).alert('close')
 
 ready = ->
   console.info '[transactions] transactions.coffee loaded', new Date()
 
-  closeAlertsAfterSomeTime()
-
+  $('.alerts').on('click', '.alert-dismissable .fa-close', closeAlertOnClick)
+  $('.alert').show("slide", { direction: "right"  })
 
   if location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)
     [_, year, month] = location.pathname.match(/transactions\/(\d{4})\/(\d{1,2})/)

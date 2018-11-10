@@ -17,7 +17,7 @@
     <%= render 'header' %>
     <div class='alerts'>
       <% flash.each do |level, message| %>
-        <div class="alert alert-<%= level %> fade show"><%= message %></div>
+        <div class="alert alert-<%= level %> alert-dismissable"><%= message %><%= fa_icon 'close' %></div>
       <% end %>
     </div>
     <div class='online-status'>
