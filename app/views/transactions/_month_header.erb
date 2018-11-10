@@ -1,0 +1,19 @@
+<%if @d %>
+  <div class='month-header'>
+    <h1>
+      <%= link_to l(@d, format: "%B"), "/transactions/#{@d.year}/#{@d.month}/", class: 'no-text-decoration' %>
+    </h1>
+    <small>
+      <span class='transactions-filter'>
+        <% if session[:groupby].present? && session[:groupby] != 'ungrouped' %>
+          <span class='transactions-pattern-filter'>por <%= t(session[:groupby]) %></span>
+        <% elsif params[:pattern] %>
+          <span class='transactions-pattern-filter'>
+            <%= fa_icon 'filter' %>
+            <%= params[:pattern] %>
+          </span>
+        <% end %>
+      </span>
+    </small>
+  </div>
+<% end %>
