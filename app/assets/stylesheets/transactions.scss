@@ -7,3 +7,20 @@ Max width before this PARTICULAR table gets nasty
 This query will take effect for any screen smaller than 760px
 and also iPads specifically.
 */
+
+.month-header {
+  h1, small {
+    display: inline-block;
+  }
+
+  .transactions-filter {
+    .transactions-pattern-filtered-by {
+      font-style: italic;
+    }
+
+    .transactions-pattern-filter {
+
+    }
+  }
+}
+

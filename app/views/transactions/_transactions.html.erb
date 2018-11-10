@@ -1,4 +1,4 @@
-<%if @d %><h1><%= link_to @d.strftime("%B"), "/transactions/#{@d.year}/#{@d.month}/", class: 'no-text-decoration' %></h1><% end %>
+<%= render 'month_header' %>
 <% unless @transactions.nil? %>
   Categorizado:
   <%= render partial: 'progressbar', locals: { progress: @progress, text: "#{@progress}%" } %>

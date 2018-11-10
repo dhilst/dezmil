@@ -1,5 +1,21 @@
 "pt-BR":
+  day: dia
+  week: semana
+  category: categoria
   date:
+    month_names:
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
     day_names:
       - Domingo
       - Segunda
