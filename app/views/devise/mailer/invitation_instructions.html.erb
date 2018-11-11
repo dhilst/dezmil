@@ -1,0 +1,15 @@
+<table style="max-width: 600px">
+  <tr>
+      <td>
+      <p>Você recebeu um convite de <%= mail_to current_user.email %> para o <%=
+      link_to root_url %>. O assistente financeiro que é mais engraçado que o
+      gerente do seu banco. Para se cadastrar siga o <%= link_to "link",
+        accept_invitation_url(@resource, :invitation_token => @token) %></p>
+      </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="<%= root_url %>/images/moneymeme.jpg"></img>
+    </td>
+  </tr>
+</table>

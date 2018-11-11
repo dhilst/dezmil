@@ -16,6 +16,12 @@ Rails.application.routes.draw do
 		end
 
     resources :goals, only: %i[index new edit create show update destroy]
+
+    if Rails.env.development?
+      scope :dev do
+        get '/invite/preview', to: 'dev#invite_preview'
+      end
+    end
 	end
 	
   devise_for :users
