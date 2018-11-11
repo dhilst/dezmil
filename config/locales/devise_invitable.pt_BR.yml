@@ -17,7 +17,7 @@ pt-BR:
         submit_button: "Set my password"
     mailer:
       invitation_instructions:
-        subject: "Invitation instructions"
+        subject: "dezmil.com.br - Você foi convidado! Yay!"
         hello: "Hello %{email}"
         someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         accept: "Accept invitation"
