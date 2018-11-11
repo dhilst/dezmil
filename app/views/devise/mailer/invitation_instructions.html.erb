@@ -1,8 +1,9 @@
 <table style="max-width: 600px">
   <tr>
       <td>
+        <% binding.pry %>
       <p>Você recebeu um convite para participar do agente financeiro <%=
-      link_to root_url %>. O assistente financeiro que é mais engraçado que o
+      link_to root_url, root_url %>. O assistente financeiro que é mais engraçado que o
       gerente do seu banco. Para se cadastrar siga o <%= link_to "link",
         accept_invitation_url(@resource, :invitation_token => @token) %></p>
       </td>
