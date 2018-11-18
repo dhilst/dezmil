@@ -68,6 +68,7 @@
           <th>Total</th>
           <td id='total-credit' class='text-center'><small><%= @transactions.where('transactions.amount > 0').sum('transactions.amount') %> <%= fa_icon 'chevron-up' %></small></td>
           <td id='total-debit'  class='text-center'><small><%= @transactions.where('transactions.amount <= 0').sum('transactions.amount') %> <%= fa_icon 'chevron-down' %></small></td>
+          <td id='total-debit'  class='text-center'><small><%= @transactions.sum('transactions.amount') %> <%= fa_icon 'plus-circle' %></small></td>
           <% if @statement %>
             <td                   class='text-center'><small><%= fa_icon 'usd' %> <%= @statement.balance %></small></td>
           <% end %>

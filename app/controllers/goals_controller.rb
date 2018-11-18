@@ -17,7 +17,7 @@ class GoalsController < ApplicationController
     @goal = Goal.new(p)
     if !@goal.save
       render :edit
-      return 
+      return
     end
     redirect_to action: :index, notice: 'Meta criada'
   end
