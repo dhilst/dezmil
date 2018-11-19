@@ -17,12 +17,10 @@
         <li class="nav-item <%= 'active' if params[:controller] == 'devise/invitations' %>">
           <%= link_to 'Convide um amigo', new_user_invitation_path, class: 'nav-link' %>
         </li>
-        <% if current_user.email == 'danielhilst@gmail.com' %>
-          <div class="dropdown-divider"></div>
-          <li class="nav-item <%= 'active' if params[:controller] == 'devise/invitations' %>">
-            <%= link_to 'Planejamento', goals_url, class: 'nav-link' %>
-          </li>
-        <% end %>
+        <div class="dropdown-divider"></div>
+        <li class="nav-item <%= 'active' if params[:controller] == 'devise/invitations' %>">
+          <%= link_to 'Planejamento', goals_url, class: 'nav-link' %>
+        </li>
         <div class="dropdown-divider"></div>
         <li class="nav-item">
           <%= link_to 'Sair', :destroy_user_session, method: :delete, class: 'nav-link' %>
