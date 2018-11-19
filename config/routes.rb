@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 	authenticate :user do
 		resources :statements, only: %i[new create]
+    resources :categories, only: :index
 
 		namespace :transactions do
 			get '/',                             action: :index
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
 			get '/:year/:month',                 action: :month
 			get '/:year/:month/groupby/:group',  action: :groupby
       patch '/category/:id/:category',     action: :set_category
+      get 'by/category/:id/amount',        action: :category_amount
 		end
 
     resources :goals, only: %i[index new edit create show update destroy]

@@ -11,6 +11,11 @@ class TransactionsController < ApplicationController
     render :index
   end
 
+  def category_amount
+    amount = current_user.transactions.month(1.month.ago).joins(:category).where(category: params[:id]).sum(:amount)
+    render json: amount
+  end
+
   def month
     if params[:pattern].present?
       return search
@@ -25,7 +30,7 @@ class TransactionsController < ApplicationController
     @goaltotal = current_user.transactions
       .joins(:category)
       .where(categories: { name: %w[invest divestiment] })
-      .sum(:amount) * -1
+      .sum(:amount)
     @goalprogress = @goaltotal * 100 / 10000
     @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]

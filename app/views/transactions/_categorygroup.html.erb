@@ -20,7 +20,7 @@
               <% goal = current_user.goals.joins(:category).find_by(categories: { name: t.category_name}) %>
               <% if goal %>
                 <small style='font-size: 0.5rem'>
-                  <%= (t._debit * -1 * 100 / goal.max).round %> %
+                  <%= (t._debit * 100 / goal.amount).round %> %
                 </small>
               <% end %>
             <% end %>

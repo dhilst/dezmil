@@ -3,7 +3,7 @@
   <thead>
     <tr>
       <th>Categoria</th>
-      <th>Meta</th>
+      <th>Planejamento</th>
       <td></td>
     </tr>
   </thead>
@@ -11,7 +11,7 @@
     <% catdname = Category.find(goal.category_id).display_name %>
     <tr>
       <td><%= catdname %></td>
-      <td><%= goal.max %></td>
+      <td><%= goal.amount %></td>
       <td>
         <%= link_to edit_goal_url(goal) do %><%= fa_icon 'edit' %><% end %>
         <%= link_to goal_url(goal), method: :delete, data: { confirm: "Deletar meta para #{catdname}?" } do %><%= fa_icon 'trash' %><% end %>
@@ -19,3 +19,14 @@
     </tr>
   <% end %>
 </table>
+<div class='fixed-bottom' style='background: none; background-color: white'>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td id='total-credit' class='text-center'><small><%= @goals.where('goals.amount > 0').sum('goals.amount') %> <%= fa_icon 'chevron-up' %></small></td>
+        <td id='total-debit'  class='text-center'><small><%= @goals.where('goals.amount <= 0').sum('goals.amount') %> <%= fa_icon 'chevron-down' %></small></td>
+        <td id='total-debit'  class='text-center'><small><%= @goals.sum('goals.amount') %> <%= fa_icon 'plus-circle' %></small></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

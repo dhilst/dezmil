@@ -13,7 +13,7 @@ class GoalsController < ApplicationController
   end
 
   def create
-    p = params.require(:goal).permit(:category_id, :max).merge(user: current_user)
+    p = params.require(:goal).permit(:category_id, :amount).merge(user: current_user)
     @goal = Goal.new(p)
     if !@goal.save
       render :edit
@@ -28,7 +28,7 @@ class GoalsController < ApplicationController
 
   def update
     @goal = Goal.find(params[:id])
-    if !@goal.update(params.require(:goal).permit(:category_id, :max).merge(user: current_user))
+    if !@goal.update(params.require(:goal).permit(:category_id, :amount).merge(user: current_user))
       render :edit
       return
     end
