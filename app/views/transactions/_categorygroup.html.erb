@@ -6,6 +6,7 @@
         <th scope="col">Categoria</th>
         <th scope="col">Entrada</th>
         <th scope="col">Saida</th>
+        <th scope="col" data-toggle="tooltip" data-placement="top" title="Comparação com mesmo dia do mes anterior: (<%= l(1.month.ago, format: '%d/%m') %>)">Mês Anterior</th>
       </tr> 
     </thead>
     <tbody>
@@ -25,6 +26,9 @@
               <% end %>
             <% end %>
             </span>
+          </td>
+          <td>
+            <%= @prev_month_amount[t.category_name] if @prev_month_amount && @prev_month_amount[t.category_name] %>
           </td>
         </tr>
       <% end %>
