@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
 
     # Redirect user to import if no statements is found
     if current_user.statements.count == 0
-      redirect_to(controller: :statements, action: :new) 
+      redirect_to(controller: :statements, action: :new)
       return
     end
 
@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
       .joins(:category)
       .where(categories: { name: %w[invest divestiment] })
       .sum(:amount)
-    @goalprogress = @goaltotal * 100 / 10000
+    @goalprogress = @goaltotal.abs * 100 / 10000
     @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]
       session.delete :groupby

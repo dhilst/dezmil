@@ -3,6 +3,7 @@
   Categorizado:
   <%= render partial: 'progressbar', locals: { progress: @progress, text: "#{@progress}%" } %>
   Investido:
+  <% binding.pry %>
   <%= render partial: 'progressbar', locals: { progress: @goalprogress, text: "#{@goaltotal.to_i.abs} / 10.000" } %>
 <% end %>
 <% if @transactions.count > 0 %>
@@ -17,7 +18,7 @@
           <th scope="col"><div class='text-center'>Entrada</div></th>
           <th scope="col"><div class='text-center'>Saída</div></th>
           <th scope="col"><div class='text-center'>Saldo    </div></th>
-        </tr> 
+        </tr>
       </thead>
       <tbody>
         <% @transactions.each do |t| %>
