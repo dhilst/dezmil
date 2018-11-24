@@ -3,7 +3,7 @@
   Categorizado:
   <%= render partial: 'progressbar', locals: { progress: @progress, text: "#{@progress}%" } %>
   Investido:
-  <%= render partial: 'progressbar', locals: { progress: @goalprogress, text: "#{@goaltotal.to_i} / 10.000" } %>
+  <%= render partial: 'progressbar', locals: { progress: @goalprogress, text: "#{@goaltotal.to_i.abs} / 10.000" } %>
 <% end %>
 <% if @transactions.count > 0 %>
   <div style="padding-bottom: 0px; background-color: white">
