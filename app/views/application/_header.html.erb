@@ -10,6 +10,9 @@
         <li class="nav-item <%= 'active' if params[:controller] == 'transactions' %>">
           <%= link_to 'Extrato', '/', class: 'nav-link' %>
         </li>
+        <li style='display: none' class="nav-item <%= 'active' if params[:controller] == 'transactions' && params[:action] == 'charts' %>">
+          <%= link_to 'Gráficos', transactions_charts_path(@d.year, @d.month), class: 'nav-link' %>
+        </li>
         <li class="nav-item <%= 'active' if params[:controller] == 'statements'%>">
           <%= link_to 'Importar', '/statements/new', class: 'nav-link' %>
         </li>

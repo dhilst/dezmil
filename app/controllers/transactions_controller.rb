@@ -1,6 +1,8 @@
 class TransactionsController < ApplicationController
-	before_action :authenticate_user!, :set_date
+	before_action :authenticate_user!
+  before_action :load_d
   before_action :load_statement
+  before_action :load_transactions_month, only: %i[charts]
 
   def index
     redirect_to "/transactions/#{@d.year}/#{@d.month}"
@@ -14,6 +16,9 @@ class TransactionsController < ApplicationController
   def category_amount
     amount = current_user.transactions.month(1.month.ago).joins(:category).where(category: params[:id]).sum(:amount)
     render json: amount
+  end
+
+  def charts
   end
 
   def month
@@ -88,7 +93,7 @@ class TransactionsController < ApplicationController
 		render :index
 	end
 
-  def set_date
+  def load_d
     year = (params[:year] || Date.today.year).to_i
     month = (params[:month] || Date.today.month).to_i
     @d = Date.new(year, month)
@@ -144,5 +149,9 @@ class TransactionsController < ApplicationController
 
   def load_statement
     @statement = current_user.statements.where('statements.date between ? and ?', @d.beginning_of_month, @d.end_of_month).order('statements.date').last
+  end
+
+  def load_transactions_month
+    @transactions = current_user.transactions.month(@d)
   end
 end

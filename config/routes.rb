@@ -11,10 +11,14 @@ Rails.application.routes.draw do
 			get '/',                             action: :index
       get '/routes',                       action: :routes
       get '/statement/:id',                action: :statement
-			get '/:year/:month',                 action: :month
-			get '/:year/:month/groupby/:group',  action: :groupby
       patch '/category/:id/:category',     action: :set_category
       get 'by/category/:id/amount',        action: :category_amount
+
+      scope '/:year/:month' do
+        get '/',                action: :month
+        get '/charts',          action: :charts
+        get '/groupby/:group',  action: :groupby
+      end
 		end
 
     resources :goals, only: %i[index new edit create show update destroy]
