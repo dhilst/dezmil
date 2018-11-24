@@ -11,7 +11,12 @@
           <%= link_to 'Extrato', '/', class: 'nav-link' %>
         </li>
         <li style='display: none' class="nav-item <%= 'active' if params[:controller] == 'transactions' && params[:action] == 'charts' %>">
-          <%= link_to 'Gráficos', transactions_charts_path(@d.year, @d.month), class: 'nav-link' %>
+          <% if @d.present? %>
+            <%= link_to 'Gráficos', transactions_charts_path(@d.year, @d.month), class: 'nav-link' %>
+          <% else %>
+            <% d = Time.zone.now %>
+            <%= link_to 'Gráficos', transactions_charts_path(d.year, d.month), class: 'nav-link' %>
+          <% end %>
         </li>
         <li class="nav-item <%= 'active' if params[:controller] == 'statements'%>">
           <%= link_to 'Importar', '/statements/new', class: 'nav-link' %>
@@ -32,7 +37,7 @@
         <li class="nav-item">
           <%= link_to 'Entrar', :new_user_session, class: 'nav-link' %>
         </li>
-      <% end %>	
+      <% end %>
     </ul>
     <% if user_signed_in? && !@d.nil? %>
       <form class="form-inline my-2 my-lg-0" action="/transactions/<%= @d.year %>/<%= @d.month %>/" method="get" >
