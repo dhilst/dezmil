@@ -10,7 +10,7 @@ class PageDate {
 			this.date = new Date();
 			this.year = now.getFullYear();
 			this.month = now.getMonth();
-		}	
+		}
 	}
 }
 
@@ -30,7 +30,6 @@ const ready = async () => {
     abs_amount: Math.abs(+d.amount),
   }));
 
-
   const width = 400, height = 400;
   const margin = 40;
   const mi = 10; // margin inner
@@ -39,7 +38,10 @@ const ready = async () => {
   const svg = d3.select('.charts')
     .append('svg')
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height + 100)
+      .append('g')
+      .attr('transform', 'translate(0, 100)')
+
 
   const x = d3.scaleLinear().domain([1,31]).range([margin + mi, width - margin - mi])
   const y = d3.scaleLinear().domain([yMax, yMin]).range([margin, height - margin - mi]);
@@ -51,6 +53,8 @@ const ready = async () => {
     .selectAll('circle')
     .data(data)
     .enter().append('circle')
+      .attr('fill', d => d.color)
+      .attr('stroke', d => 'black')
       .attr('r', d => 4)
       .attr('cx', d => x(d.date.getDate()))
       .attr('cy', d => y(d.amount))
@@ -68,8 +72,21 @@ const ready = async () => {
     .text('Dia')
 
   svg.append('text')
-    .attr('transform', `rotate(270)`)
-    .text('valor')
+    .text('Dispersão')
+    .attr('x', margin)
+    .attr('y', 0)
+    .attr('font-size', 32)
+
+  {
+    let x = 58,
+      y = 60;
+
+    svg.append('text')
+      .text('R$')
+      .attr('y', y)
+      .attr('x', x)
+      .attr('transform', `rotate(270 ${x} ${y})`)
+  }
 
 }
 

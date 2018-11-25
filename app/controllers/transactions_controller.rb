@@ -20,7 +20,12 @@ class TransactionsController < ApplicationController
 
   def charts
     respond_to do |format|
-      format.json { render json: transactions }
+      format.json { render json: transactions
+        .joins(:category)
+        .select('categories.color as color',
+                'amount',
+                'date',
+                'memo') }
       format.html
     end 
   end
