@@ -1,8 +1,8 @@
 class TransactionsController < ApplicationController
 	before_action :authenticate_user!
   before_action :load_d
+  before_action :load_transactions
   before_action :load_statement
-  before_action :load_transactions_month, only: %i[charts]
 
   def index
     redirect_to "/transactions/#{@d.year}/#{@d.month}"
@@ -19,6 +19,10 @@ class TransactionsController < ApplicationController
   end
 
   def charts
+    respond_to do |format|
+      format.json { render json: transactions }
+      format.html
+    end 
   end
 
   def month
@@ -49,9 +53,10 @@ class TransactionsController < ApplicationController
       @progress = 0
     end
     groupby_filter
-    render :index
+    respond_to do |format|
+      format.html { render :index }
+    end
   end
-
 
   def groupby
     session[:groupby] = params[:group]
@@ -94,9 +99,13 @@ class TransactionsController < ApplicationController
 	end
 
   def load_d
+    d
+  end
+
+  def d
     year = (params[:year] || Date.today.year).to_i
     month = (params[:month] || Date.today.month).to_i
-    @d = Date.new(year, month)
+    @d ||= Date.new(year, month)
   end
 
   def groupby_filter
@@ -151,7 +160,11 @@ class TransactionsController < ApplicationController
     @statement = current_user.statements.where('statements.date between ? and ?', @d.beginning_of_month, @d.end_of_month).order('statements.date').last
   end
 
-  def load_transactions_month
-    @transactions = current_user.transactions.month(@d)
+  def transactions 
+    @transactions ||= current_user.transactions.month(d)
+  end
+
+  def load_transactions
+    transactions
   end
 end

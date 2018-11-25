@@ -6,10 +6,13 @@
   },
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-react": "^6.24.1",
+    "d3": "^5.7.0",
+    "d3-scale": "^2.1.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
-    "react-d3-components": "^0.9.1",
     "react-dom": "^16.5.2",
     "react_ujs": "^2.4.4"
   },

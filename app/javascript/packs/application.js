@@ -12,3 +12,9 @@ console.log('Hello World from Webpacker')
 var componentRequireContext = require.context("components", true)
 var ReactRailsUJS = require("react_ujs")
 ReactRailsUJS.useContext(componentRequireContext)
+
+require('babel-core/register');
+require('babel-polyfill');
+
+require('./transactions');
+
