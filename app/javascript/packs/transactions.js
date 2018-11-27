@@ -17,8 +17,10 @@ class PageDate {
 const ready = async () => {
 
   // Hacky
-  $('#groupby').hide();
-  $('.transactions-filter').hide();
+  if (location.pathname.match(/\/charts$/)) {
+    $('#groupby').hide();
+    $('.transactions-filter').hide();
+  }
 
 	const date = new PageDate();
 	const response = await axios.get(`/transactions/${date.year}/${date.month}/charts.json`);
