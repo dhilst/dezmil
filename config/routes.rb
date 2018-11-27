@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
 		namespace :transactions do
 			get '/',                             action: :index
-      get '/routes',                       action: :routes
       get '/statement/:id',                action: :statement
       patch '/category/:id/:category',     action: :set_category
       get 'by/category/:id/amount',        action: :category_amount

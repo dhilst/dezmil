@@ -24,21 +24,5 @@
 
 $(document).on('ready turbolinks:load', function(){
   $('#search').focus();
-
-  <% if Rails.env.production? %>
-    var isOnline = false;
-    setInterval(function(){
-      if (isOnline === true) {
-        $.ajax('/ping').catch(function(){
-          $('#is-offline').slideDown().delay(5000).slideUp();
-          isOnline = false;
-        });
-      } else if (isOnline === false) {
-        $.ajax('/ping').then(function(){
-          isOnline = true;
-        });
-      }
-    }, 3000);
-  <% end %>
   $('[data-toggle="tooltip"]').tooltip();
 });

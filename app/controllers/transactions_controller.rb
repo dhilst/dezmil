@@ -73,20 +73,6 @@ class TransactionsController < ApplicationController
    current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(name: params[:category]))
   end
 
-  def routes
-    dates = current_user.transactions.select('to_char(transactions.date, \'YYYY/MM\') as d').group(:d).map(&:d)
-
-    routes = []
-    dates.map do |month_route|
-      routes << "/transactions/#{month_route}"
-      routes << "/transactions/#{month_route}/groupby/day"
-      routes << "/transactions/#{month_route}/groupby/week"
-      routes << "/transactions/#{month_route}/groupby/category"
-    end
-
-    render json: routes
-  end
-
 	private
 
 	def search
