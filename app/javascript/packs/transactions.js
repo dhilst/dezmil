@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as axios from 'axios';
+import * as moment from 'moment';
 
 class PageDate {
 	constructor() {
@@ -44,7 +45,9 @@ const ready = async () => {
       .append('g')
       .attr('transform', 'translate(0, 100)')
 
-  const x = d3.scaleLinear().domain([1,31]).range([margin + mi, width - margin - mi])
+  const d1 = moment().startOf('month');
+  const d2 = moment().endOf('month');
+  const x = d3.scaleTime().domain([d1,d2]).range([margin + mi, width - margin - mi])
   const y = d3.scaleLinear().domain([yMax, yMin]).range([margin, height - margin - mi]);
   const xAxis = d3.axisBottom(x).ticks(8)
   const yAxis = d3.axisLeft(y).ticks(5)
