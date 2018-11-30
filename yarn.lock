@@ -1819,7 +1819,7 @@ d3-voronoi@1:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/d3-voronoi/-/d3-voronoi-1.1.4.tgz#dd3c78d7653d2bb359284ae478645d95944c8297"
 
-d3-zoom@1:
+d3-zoom@1, d3-zoom@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/d3-zoom/-/d3-zoom-1.7.3.tgz#f444effdc9055c38077c4299b4df999eb1d47ccb"
   dependencies:
