@@ -133,13 +133,11 @@ class TransactionsController < ApplicationController
         .group('categories.id')
         .order('_debit')
       @categorygroup = true
-      if @d.month == Time.zone.now.month
-        @prev_month_amount = current_user.transactions
-          .where('transactions.date between ? and ?', 1.month.ago.beginning_of_month, 1.month.ago)
-          .joins(:category)
-          .group('categories.name')
-          .sum(:amount)
-      end
+      @prev_month_amount = current_user.transactions
+        .where('transactions.date between ? and ?', @d.prev_month.beginning_of_month, @d.prev_month.end_of_month)
+        .joins(:category)
+        .group('categories.name')
+        .sum(:amount)
       @grouped = true
     else
       @transactions = @transactions.order('date, memo')
