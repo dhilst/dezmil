@@ -107,3 +107,8 @@ Category.find_or_create_by(
   name: 'others',
   color: '#a10afa'
 )
+Category.find_or_create_by(
+  display_name: 'Presentes',
+  name: 'gifts',
+  color: '#f48f42'
+)
