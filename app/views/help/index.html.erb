@@ -1,0 +1,286 @@
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@14/dist/smooth-scroll.polyfills.min.js"></script>
+<style>
+.bg-yellow {
+  background-color: #fffdc9;
+}
+
+.bg-green {
+  background-color: #c6ffc3;
+}
+
+.bg-blue {
+  background-color: #a6d2ff;
+}
+
+.bg-purple {
+  background-color: #c1c3ff;
+}
+</style>
+<div class='container'>
+  <div class="row pt-5">
+    <div class="col-12">
+      <h2>O que é?</h2>
+
+      <p><em>dezmil</em> é um agente financeiro com um foco simples. Fazer você criar o hábito
+      de poupar e juntar R$ 10.000 reais. Você importa seu extrato diretamente do banco,
+      categoriza seus gastos e cria metas para cada categoria.</p>
+
+      <p>
+      Com as metas criadas você pode acompanhar seus gastos durante o mês e avaliar
+      onde é preciso economizar. Tudo isso antes que o mês acabe.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Como funciona?</h2>
+    </div>
+  </div>
+  <div class="card-deck">
+    <div class="card">
+      <div class="card-header text-center bg-yellow">
+        <h2>1º</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Importe!</h5>
+        <p>Baixe o extrato no seu internet banking no formato
+        <code>.ofx</code> e <%= link_to 'importe aqui!', new_statement_path,
+          class: "card-link", target: :_blank %></p>
+      </div>
+      <div class="card-footer"><%= link_to 'Saiba mais ...', '#import' %></div>
+    </div>
+    <div class="card">
+      <div class="card-header text-center bg-green">
+        <h2>2º</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Categorize!</h5>
+        <p class="card-text">Categorize seus gastos. Você só precisa fazer isso uma vez por estabelecimento!</p>
+      </div>
+      <div class="card-footer"><%= link_to 'Saiba mais ...', '#categorize' %></div>
+    </div>
+    <div class="card" >
+      <div class="card-header text-center bg-blue">
+        <h2>3º</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Planeje!</h5>
+        <p class="card-text">Crie <%= link_to 'metas', goals_path, target:
+          :_blank , class: 'card-link' %> para seus gastos e investimentos.
+          Acompanhe seus gastos e saiba onde está gastando!</p>
+      </div>
+      <div class="card-footer"><%= link_to 'Saiba mais ...', '#planing' %></div>
+    </div>
+    <div class="card" >
+      <div class="card-header text-center bg-purple">
+        <h2>4º</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Poupe!</h5>
+        <p>Acompanhe seus gastos e quanto investiu. Saiba quanto falta para seus <em>R$ 10.000!</em></p>
+      </div>
+      <div class="card-footer"><%= link_to 'Saiba mais ...', '#invest' %></div>
+    </div>
+  </div>
+
+  <div class="row pt-5">
+    <div class="card">
+      <div class="card-header bg-yellow">
+        <h2 id="import">1º - Importar</h2>
+      </div>
+      <div class="card-body">
+        <p>
+        O primeiro passo é importar os dados. Para isso você precisa acessar o seu
+        internet banking e importar o extrato da sua conta corrente em formato .ofx.
+        Esse é o mesmo formato suportado pelo GNU Cash e o Microsoft Money. Você pode
+        fazer isso na página <%= link_to 'Importar', new_statement_path, target: :_blank %>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="card">
+      <div id="categorize" class="card-header bg-green"><h2>2º - Categorizar</h2></div>
+      <div class="card-body">
+        <p>
+        Uma vez importado é hora de categorizar as seus gastos. Parar isso selecione a
+        categoria. Quando a cor de fundo mudar de cor quer dizer que a categoria foi
+        salva.
+        </p>
+        <p>
+        Agora que você tem seus dados categorizados você pode vizualiza-los de
+        diferentes formas usando o seletor de agrupamento. Atualmente é possivel agrupar
+        por semana, dia e categoria. Além disso, clicando no título do gasto é possivel
+        filtrar-los por estabelecimento.
+        </p>
+        <p>
+        A barra de categorização mostra a porcentagem de gastos categorizados. Esse é um
+        bom indicativo pra saber se você sabe pra onde está indo seu dinheiro. As
+        categorias são fechadas, isto é, não podem ser livremente criadas. Um sistema de
+        sugestão de novas categorias vai ser criado no futuro, bem como uma página
+        de ajuda descrevendo cada categoria.
+        </p>
+        <p>
+        É possivel visualizar ainda a entrada <%= fa_icon 'chevron-up' %>, saída <%=
+        fa_icon 'chevron-down' %>, total (entrada + saida) <%= fa_icon 'plus-circle' %>
+      e saldo <%= fa_icon 'usd' %> em conta no rodapé. É preciso lembrar que
+      transações positivas significam dinheiro entrando na conta, enquano transações
+      negativas significam dinheiro saindo da conta.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="card">
+      <div class="card-header bg-blue">
+        <h2 id="planing">3º - Planejando-se e rastreando seus gastos</h2>
+      </div>
+
+      <div class="card-body">
+        <p>
+        Na página de <%= link_to 'Planejamento', goals_path, target: :_blank %> é possivel
+        criar um orçamento a ser seguido.
+        </p>
+
+        <p>
+        O ideal é que você crie seu planejamento depois de ter importado e categorizado
+        pelo menos o mês anterior. Isso não quer dizer que você tem que esperar um mês,
+        é só baixar o extrato do mês anterior no seu internet banking, importar e
+        categorizar. A página de <i>Planejamento</i> vai usa as informações do
+        mês anterior durante a criação das metas.
+        </p>
+
+        <p>
+        Na página de <i>Planejamento</i> é possivel ver entrada <%= fa_icon 'chevron-up'
+        %>, saída <%= fa_icon 'chevron-down' %> e total <%= fa_icon 'plus-circle' %>.
+        Pra começar você deve criar a meta para os seu salário ou receita, isso vai dar
+        a parte positiva do seu orçamento. O valor gasto/recebido no mês passado é
+        preenchido no <i>Valor</i> assim que a categoria é selecionada. Você pode editar
+        esse valor, ele serve como um guia, para você não ter que ir em outra página
+        procurar a informação que precisa.
+        </p>
+
+        <p>
+        Agora que tem a parte posivita você pode criar as metas para os gastos, sempre
+        atentando ao total <%= fa_icon 'plus-circle' %> que deve ser positivo. Esse vai
+        ser seu orçamento planejado, seu norte financeiro, mas como você sabe se está conseguindo
+        se manter no planejado?
+        </p>
+
+        <h3>Rastreando suas metas</h3>
+
+        <p>
+        Quando você cria uma meta para uma determinada categoria um pequeno
+        numero em forma de porcentagem aparece ao lado do valor de entrada ou
+        saída representando quanto você ja gastou da meta. Como o valor da meta
+        vale para o mês você tem que levar em consideração a evolução desse
+        número. 
+        </p>
+
+        <p>
+        Por exemplo, imagine que você criou uma meta de R$ 500,00 para alimentação. Isso
+        são R$ 500,00 no mês. Se na primeira semana você gastar R$ 250,00 a meta vai
+        aparecer como 50%, mas você ainda tem três semanas pela frente, lembre-se de
+        adminstrar suas metas pelo mês inteiro, na primeira semana
+        tente não passar de 25%, na segunda 50%, 75% na terceira e 100% na ultima.
+        </p>
+
+        <p>
+        Alguns tipos de gastos evoluem diferentemente durante o mes. Se você paga alguel
+        por exemplo seus gastos com a casa (ou qualquer outra categoria que você usou
+        para o alguel) vão dar um grande salto em um dia. Já gastos com alimetação e
+        lazer tendem a ser mais homogeneos durante o mês todo e por isso são mais faceis
+        de rastrear.
+        </p>
+
+        <p>
+        Além da porcentagem da meta é possivel acompanhar quanto você gastou no mes
+        passado até o dia corrente. Se você está no dia 7 de dezembro essa coluna vai
+        considerar o quanto você gastou com a mesma categoria até o dia 7 de novembro.
+        Isso vai ajudar você a saber se está gastando mais ou menos que o mês passado.
+        Caso esteja visualizando um mês já fechado essa coluna vai apresentar o valor do
+        mês inteiro anterior. Então se estamos em janeiro, mas você está vizualizando os
+        dados de dezembro a coluna vai mostrar o valor gasto no mês de novembro todo.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="card">
+      <div class="card-header bg-purple">
+        <h2 id="invest">4º - Poupando!</h2>
+      </div>
+      <div class="card-body">
+        <p>
+        Já diz o ditado <i>Dinheiro na mão é ventaval</i>. Entre as
+        categorias exitem duas que tem um significado especial.
+        <i>Investimento</i> é o dinheiro que você investiu. Esse é sempre uma
+        transação negativa, porque é um dinheiro que saiu da sua conta para ser
+        aplicado de alguma forma. Quando você categoriza alguma transação como
+        <i>Investimento</i> a barra de investimento aumenta, mostrando
+        quanto foi investido. A outra categoria especial é <i>Desinvestimento</i>
+        esse é um dinheiro que você retirou do seu investimento para suprir
+        alguma emergência. É sempre um valor positivo porque é um dinheiro que
+        entrou na sua conta. Quando você categoriza um valor como
+        <i>Desinvestimento</i> o valor é subtraido na barra de investimento.
+        </p>
+
+        <p>
+        A barra de investimento representa a subtração <i>Investido <em>menos</em> Desinvestido</i>. Quando ela encher você
+        chegou aos R$ 10.000 reais!
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="card">
+      <div class="card-header">
+        <h2>Motivação</h2>
+      </div>
+
+      <div class="card-body">
+        <p> O dezmil foi criado por dois motivos. Eu tentei usar vários
+        assistentes financeiros, principalmente os  mobiles. Mas sempre precisava
+        inserir os dados manualmente. Para cada bala comprada eu precisava
+        inserir os um novo gasto, e categorizar, de novo, de novo e de novo. No
+        final do mês <em>sempre</em> haviam discrepancias. Resumindo era muito
+        trabalhoso e pouco preciso.  Segundo, eu queria algo que me motivasse a
+        criar o hábito de investir e economizar.
+        </p>
+
+        <p>
+        O principal ponto era ser muito; mas muito simples mesmo! E eliminar o máximo
+        possível a repetição.
+        </p>
+
+        <p>
+        Ainda sim existem algumas situações onde em que o software não ajuda
+        muito. Ele não suporta importar o extrato do cartão de crédito. Pelo
+        menos o meu banco não da a opção de exportar um extrato <code>.ofx</code>
+        para o cartão de credito. Outro problema são os saques. Quando você saca
+        dinheiro ele se torna irrastreavel para o software, ainda que você saiba
+        o quanto sacou, é impossivel saber como esse dinheiro foi gasto.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="card">
+      <div class="card-header">
+        <h2>Acesso</h2>
+      </div>
+      <div class="card-body">
+        <p>Pra acessar o dezmil você precisa receber um convite. Todo usuário recebe 5 convites para
+        enviar para seus amigos, caso não tenha um conhecido que possa te mandar um, me chama
+        no <%= link_to 'twitter', 'https://twitter.com/DanielHilst2', target:
+          :_blank %> que eu te envio!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  new SmoothScroll('a[href*="#"]');
+</script>

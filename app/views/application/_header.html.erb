@@ -30,12 +30,18 @@
           <%= link_to 'Planejamento', goals_url, class: 'nav-link' %>
         </li>
         <div class="dropdown-divider"></div>
+        <li class="nav-item <%= 'active' if params[:controller] == 'help' %>">
+          <%= link_to 'Ajuda', help_index_url, class: 'nav-link' %>
+        </li>
         <li class="nav-item">
           <%= link_to 'Sair', :destroy_user_session, method: :delete, class: 'nav-link' %>
         </li>
       <% else %>
         <li class="nav-item">
           <%= link_to 'Entrar', :new_user_session, class: 'nav-link' %>
+        </li>
+        <li class="nav-item <%= 'active' if params[:controller] == 'help' %>">
+          <%= link_to 'Ajuda', help_index_url, class: 'nav-link' %>
         </li>
       <% end %>
     </ul>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'help/index'
 	root to: 'transactions#index'
   get '/offline', to: 'application#offline' 
   get '/ping', to: 'application#ping'
