@@ -112,3 +112,13 @@ Category.find_or_create_by(
   name: 'gifts',
   color: '#f48f42'
 )
+Category.find_or_create_by(
+  display_name: 'Carro',
+  name: 'car',
+  color: '#f282a2'
+)
+Category.find_or_create_by(
+  display_name: 'Imposto',
+  name: 'tribute',
+  color: '#f282a2'
+)
