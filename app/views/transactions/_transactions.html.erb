@@ -11,6 +11,7 @@
       <thead>
         <tr>
           <th scope="col"><div class='text-center'>Data</div></th>
+          <th scope="col"><div class='text-center'>Conta</div></th>
           <th scope="col"><div class='text-center'>Memo</div></th>
           <th scope="col"></th>
           <th scope="col"><div class='text-center'>Categoria</div></th>
@@ -24,6 +25,14 @@
           <tr>
             <td>
               <%= render 'txcell', header: 'Data', value: l(t.date, format: "%A - %d/%m/%Y") %>
+            </td>
+            <td>
+              <div class='text-left mobile-only'>
+                <small>Conta</small>
+              </div>
+              <div class='memo'>
+                <%= "#{t.statement.bank}/#{t.statement.number.to_i.to_s}" %>
+              </div>
             </td>
             <td>
               <div class='text-left mobile-only'>
