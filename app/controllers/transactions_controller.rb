@@ -49,11 +49,11 @@ class TransactionsController < ApplicationController
     @transactions = current_user.transactions.month(@d).order(:date, :id, :memo)
     if params[:category]
       session.delete :groupby
-      @transactions = @transactions.joins(:category).where('categories.name = ?', params[:category])
+      @transactions = @transactions.joins(:category).where('categories.id = ?', params[:category])
     end
     total_count = @transactions.count
     if total_count > 0
-      @progress = @transactions.joins(:category).where('categories.name != ?', "uncategorized").count * 100 / total_count
+      @progress = @transactions.joins(:category).where('categories.id != ?', 1).count * 100 / total_count
     else
       @progress = 0
     end
@@ -70,7 +70,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_category
-   current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(name: params[:category]))
+   current_user.transactions.find(params[:id]).update_attributes(category: Category.find(params[:category]))
   end
 
 	private
@@ -123,27 +123,30 @@ class TransactionsController < ApplicationController
         .group('extract(\'week\' from transactions.date)')
       @grouped = true
     when 'category'
-      @transactions = current_user.transactions
-        .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name, categories.id,
-                 categories.name as category_name,
+      @lines = current_user.transactions.joins(:category).group('categories.id').count.length
+      @transactions = current_user
+        .transactions
+        .select('(case when categories.display_name = \'selecione ..\' then \'Sem categoria\' else categories.display_name end) as display_name,
+                 categories.id as category_id,
                  sum(case when transactions.amount > 0 then transactions.amount else NULL end) as _credit,
                  sum(case when transactions.amount < 0 then transactions.amount else NULL end) as _debit')
         .joins(:category)
+        .where(categories: { user_id: [nil, current_user.id] })
         .month(@d)
-        .group('categories.id')
+        .group('categories.id', 'categories.display_name')
         .order('_debit')
       @categorygroup = true
       @prev_month_amount = if @d.month == Time.zone.now.month
         current_user.transactions
           .where('transactions.date between ? and ?', 1.month.ago.beginning_of_month, 1.month.ago)
           .joins(:category)
-          .group('categories.name')
+          .group('categories.id')
           .sum(:amount)
       else
         current_user.transactions
           .where('transactions.date between ? and ?', @d.prev_month.beginning_of_month, @d.prev_month.end_of_month)
           .joins(:category)
-          .group('categories.name')
+          .group('categories.id')
           .sum(:amount)
       end
       @grouped = true

@@ -29,6 +29,9 @@
         <li class="nav-item <%= 'active' if params[:controller] == 'devise/invitations' %>">
           <%= link_to 'Planejamento', goals_url, class: 'nav-link' %>
         </li>
+        <li class="nav-item <%= 'active' if params[:controller] == 'help' %>">
+          <%= link_to 'Categorias', categories_url, class: 'nav-link' %>
+        </li>
         <div class="dropdown-divider"></div>
         <li class="nav-item <%= 'active' if params[:controller] == 'help' %>">
           <%= link_to 'Ajuda', help_index_url, class: 'nav-link' %>

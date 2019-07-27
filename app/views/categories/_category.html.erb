@@ -1,0 +1,17 @@
+<tr>
+  <td><%= category.display_name %></td>
+  <td><%= category.help %></td>
+  <td style="background-color: <%= category.color %>"></td>
+  <td>
+    <div class="btn-group">
+      <% if category.user_id == current_user.id %>
+        <%= link_to edit_category_path(category), class: 'btn btn-primary' do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+        <%= link_to category_path(category), method: :delete, class: 'btn btn-danger', data: {confirm: "Quer remover a categoria #{category.display_name}"} do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </td>
+</tr>

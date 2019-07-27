@@ -1,5 +1,5 @@
 <%= render 'month_header' %>
-<% if @transactions.length > 0 %>
+<% if @lines > 0 %>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -12,13 +12,13 @@
     <tbody>
       <% @transactions.each do |t| %>
         <tr>
-          <td><%= link_to t.display_name, "/transactions/#{@d.year}/#{@d.month}?category=#{t.category_name}", class: 'no-text-decoration' %></td>
+          <td><%= link_to t.display_name, "/transactions/#{@d.year}/#{@d.month}?category=#{t.category_id}", class: 'no-text-decoration' %></td>
           <td><%= t._credit %></td>
           <td>
             <span>
             <%= t._debit %>
             <% if t._debit && t._debit < 0 %>
-              <% goal = current_user.goals.joins(:category).find_by(categories: { name: t.category_name}) %>
+              <% goal = current_user.goals.joins(:category).find_by(categories: { id: t.category_id}) %>
               <% if goal %>
                 <small style='font-size: 0.5rem'>
                   <%= (t._debit * 100 / goal.amount).round %> %
@@ -28,7 +28,7 @@
             </span>
           </td>
           <td>
-            <%= @prev_month_amount[t.category_name] if @prev_month_amount && @prev_month_amount[t.category_name] %>
+            <%= @prev_month_amount[t.category_id] if @prev_month_amount && @prev_month_amount[t.category_id] %>
           </td>
         </tr>
       <% end %>

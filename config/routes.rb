@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 	authenticate :user do
 		resources :statements, only: %i[new create]
-    resources :categories, only: :index
+    resources :categories
 
 		namespace :transactions do
 			get '/',                             action: :index
@@ -20,7 +20,6 @@ Rails.application.routes.draw do
         get '/groupby/:group',  action: :groupby
       end
 		end
-
     resources :goals, only: %i[index new edit create show update destroy]
 
     if Rails.env.development?
@@ -29,6 +28,6 @@ Rails.application.routes.draw do
       end
     end
 	end
-	
+
   devise_for :users
 end

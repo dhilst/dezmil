@@ -1,0 +1,21 @@
+<h1>Categorias personalizadas</h1>
+<div class="col-12 text-right">
+  <%= link_to new_category_path, class: 'btn btn-primary' do %>
+    <i class="fa fa-plus"></i>
+  <% end %>
+</div>
+<table class="table">
+  <thead>
+<tr>
+  <th>Nome</th>
+  <th>Ajuda</th>
+  <th>Cor</th>
+  <th>Açoes</th>
+</tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <%= render 'category', category: category %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <% if params[:action] == 'new' %>
+      <h1>Crie uma nova categoria</h1>
+    <% else %>
+      <h1>Edit a categoria</h1>
+    <% end %>
+  </div>
+  <%= form_for(@category, class: 'form-inline') do |f| %>
+    <div class='form-group'>
+      <%= f.label 'Nome', for: :display_name %>
+      <%= f.text_field :display_name, class: 'form-control' %>
+    </div>
+    <div class='form-group'>
+      <%= f.label 'Descrição', for: :help %>
+      <%= f.text_field :help , class: 'form-control' %>
+    </div>
+    <div class='form-group'>
+      <%= f.label 'Cor', for: :color %>
+      <%= f.color_field :color , class: 'form-control' %>
+    </div>
+    <% unless @category.errors.empty? %>
+      <h3>Erros:</h3>
+      <ul>
+        <% @category.errors.full_messages.each do |e| %>
+          <li><%= e %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <%= f.submit 'Salvar', class: 'btn btn-success' %>
+  <% end %>
+</div>

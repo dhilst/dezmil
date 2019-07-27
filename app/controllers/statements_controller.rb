@@ -46,6 +46,7 @@ class StatementsController < ApplicationController
       from  transactions
       join  categories on categories.id = transactions.category_id
       where categories.name <> 'uncategorized' and
+            (categories.user_id = #{current_user.id}  or categories.user_id is null) and
             (length(transactions.memo) - levenshtein(lower(transactions.memo),lower('#{t.memo}')))::float / length(transactions.memo) > 0.9
       group by categories.id
       having count(categories.id) >= 1
