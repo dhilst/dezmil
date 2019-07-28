@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 			get '/',                             action: :index
       get '/statement/:id',                action: :statement
       patch '/category/:id/:category',     action: :set_category
+      patch '/category/:id/',              action: :set_category
       get 'by/category/:id/amount',        action: :category_amount
 
       scope '/:year/:month' do

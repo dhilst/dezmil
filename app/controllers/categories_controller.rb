@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :load_category, only: %i[update edit destroy]
 
   def index
-    @categories = Category.where(user_id: current_user.id)
+    @categories = current_user.categories
   end
 
   def new

@@ -41,7 +41,7 @@ function ready() {
     console.debug("[transactions] Category changed");
     var tid = $(e.target).data('transaction');
     var cat = e.target.value;
-    var color = $(e.target).find(`[value=${cat}]`).data('color');
+    var color = cat ? $(e.target).find(`[value=${cat}]`).data('color') : '#ffffff';
     console.debug('color', color);
     $(e.target).parent().parent().find('td .hidden.loading').show(200).delay(10).addClass('spin-animation');
     $.ajax(`/transactions/category/${tid}/${cat}`, {

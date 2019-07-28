@@ -70,7 +70,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_category
-   current_user.transactions.find(params[:id]).update_attributes(category: Category.find(params[:category]))
+    current_user.transactions.find(params[:id]).update_attributes(category: Category.find_by(id: params[:category]))
   end
 
 	private

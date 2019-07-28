@@ -6,4 +6,8 @@ class User < ApplicationRecord
 	has_many :statements
 	has_many :transactions, through: :statements
   has_many :goals
+
+  def categories
+    Category.where(user_id: [nil, id]).where.not(name: 'uncategorized')
+  end
 end

@@ -54,10 +54,11 @@
                                   class: 'category-select custom-select',
                                   'data-transaction' => t.id.to_s,
                                   style: "background-color: #{t.category&.color || 'white'}",
+                                  include_blank: 'Selecione',
                                   id: nil)
                                 %>
           </td>
-          <% [%w[credit  Entrada], 
+          <% [%w[credit  Entrada],
               %w[debit   Saída],
               %w[balance Saldo]
           ].each do |attr, header| %>
