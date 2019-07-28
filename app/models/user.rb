@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :goals
 
   def categories
-    Category.where(user_id: [nil, id]).where.not(name: 'uncategorized')
+    Category.where(user_id: [nil, self.id]).where.not(name: 'uncategorized')
+  end
+
+  def custom_categories
+    Category.where(user_id: self.id)
   end
 end

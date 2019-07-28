@@ -1,8 +1,8 @@
 require 'i18n'
 
 module TransactionsHelper
-  def groups 
-    if session[:groupby].nil? || session[:groupby] == 'ungrouped' 
+  def groups
+    if session[:groupby].nil? || session[:groupby] == 'ungrouped'
       dftopt = 'agrupar por ...'
     else
       dftopt = 'desagrupar ...'
