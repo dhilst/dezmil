@@ -11,7 +11,6 @@ FactoryBot.define do
     end
 
     after :build do |cat| material = Faker::Commerce.unique.material
-      cat.name ||= material
       cat.display_name ||= material
     end
   end

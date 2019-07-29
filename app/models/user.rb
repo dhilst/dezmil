@@ -8,7 +8,10 @@ class User < ApplicationRecord
   has_many :goals
 
   def categories
-    Category.where(user_id: [nil, self.id]).where.not(name: 'uncategorized')
+    name = Category.arel_table[:name]
+    Category
+      .where(user_id: [nil, id])
+      .where(name.not_eq('uncategorized').or(name.eq(nil)))
   end
 
   def custom_categories

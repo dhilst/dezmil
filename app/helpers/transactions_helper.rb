@@ -18,7 +18,7 @@ module TransactionsHelper
   def categories(transaction)
     cats = current_user.categories.order(:display_name).map do |c|
       selected_attr = transaction.category&.id == c.id ? 'selected' : ''
-      "<option value='#{c.id}' class='category-#{c.name}' #{selected_attr} data-color='#{c.color}'>#{c.display_name}</option>\n"
+      "<option value='#{c.id}' #{selected_attr} data-color='#{c.color}'>#{c.display_name}</option>\n"
     end.join
     cats
   end
