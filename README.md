@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://dezmil.herokuapp.com/about
 
-Things you may want to cover:
+# O que é?
 
-* Ruby version
+Dezmil é um agente financeiro fácil de usar
 
-* System dependencies
+# Como funciona?
 
-* Configuration
+Você importa seu extrato bancário, categoriza seus
+gastos e ve o quanto está poupando. Ele não controla
+investimentos, juros, nada disso, é bem mais simples
+que isso, são só seus gastos e as categorias.
 
-* Database creation
 
-* Database initialization
+# Stack
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Basicamente Ruby on Rails e Postgres com a extenção `fuzzystrmatch`.
