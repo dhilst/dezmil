@@ -1,6 +1,6 @@
 # README
 
-https://dezmil.herokuapp.com/about
+https://dezmil.herokuapp.com/help/index
 
 # O que é?
 
