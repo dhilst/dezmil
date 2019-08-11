@@ -64,7 +64,7 @@ class StatementsController < ApplicationController
         memo: t.memo,
         amount: t.amount,
         date: t.posted_at,
-        category_id: categories.first.category_id,
+        category_id: categories.first&.category_id,
         balance: t.balance
       )
     end
