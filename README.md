@@ -1,7 +1,5 @@
 # README
 
-https://dezmil.herokuapp.com/help/index
-
 # O que é?
 
 Dezmil é um agente financeiro fácil de usar
